@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>よくある質問</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    window.onload = init;
+    function init(){
+      var buttons = document.getElementsByTagName('button');
+      buttons.item(0).onclick = allOpen;
+      buttons.item(1).onclick = allClose;
+
+      var questions = document.getElementsByTagName('dt');
+      for (var i = 0; i < questions.length; i++) {
+        questions.item(i).onclick = toggleAnswer;
+        var answer = questions.item(i).nextSibling.nextSibling;
+        var links = answer.getElementsByTagName('a');
+        links.item(0).onclick = addStar;
+        links.item(1).onclick = removeStar;
+      }
+   }
+
+    function allChange(mode){
+      var answers = document.getElementsByTagName('dd');
+      for (var i = 0; i < answers.length; i++) {
+        answers.item(i).className = mode;
+      }
+    }
+
+    function allOpen(){
+      allChange('open');
+    }
+
+    function allClose(){
+      allChange('close');
+    }
+
+    function toggleAnswer(event){
+      var question = event.target;
+      var answer = question.nextSibling.nextSibling;
+      if (answer.className === 'close'){
+        answer.className = 'open'
+      }else{
+        answer.className = 'close'
+      }
+    }
+
+    function addStar(event){
+      var star = document.createElement('img');
+      star.src = 'star.png';
+      var link = event.target;
+      var elm = link.parentNode;
+      elm.appendChild(star);
+    }
+
+    function removeStar(event){
+      var link = event.target;
+      var elm = link.parentNode;
+      if(elm.lastChild.nodeName==='IMG'){
+        elm.removeChild(elm.lastChild);
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="wrapper">
+    <h1>よくある質問</h1>
+    <p>質問をクリックすると、回答が表示されます。</p>
+    <button>すべて開く</button>
+    <button>すべて閉じる</button>
+    <dl>
+      <dt>支払い方法は？</dt>
+      <dd class="close">
+        <p>各種クレジットカード、電子マネー、コンビニ払い、銀行振込、郵便振替に対応しています。</p>
+        <div class="evaluate">
+          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
+        </div>
+      </dd>
+      <dt>キャンセル料は？</dt>
+      <dd class="close">
+        <p>キャンセル料は14日前まで無料、13日～7日前は30％、6日前～2日前は50％、1日前～当日は100％になります。なお、主催者都合および大規模な自然災害によるキャンセルについては、キャンセル料は一切いただきません。</p>
+        <div class="evaluate">
+          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
+        </div>
+      </dd>
+      <dt>予約内容を変更するには？</dt>
+      <dd class="close">
+        <p>ご予約完了後にお送りしたメール記載のURLをWebブラウザーで開き、IDとパスワードを入力してログインし、変更手続きを行って下さい。</p>
+        <div class="evaluate">
+          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
+        </div>
+      </dd>
+    </dl>
+  </div>
+</body>
+</html>
