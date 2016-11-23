@@ -5,24 +5,36 @@
   <title>よくある質問</title>
   <link rel="stylesheet" href="style.css">
   <script>
+
+  //ドキュメントの読み込み
   var taglist = document.getElementsByTagName('dd');
-    function allOpen(){
+  var elms = document.getElementsByClassName('evalute');
+  //createElementでimg要素を作成している。
+  //createElementはあくまでノード上のデータなので、DOMには影響を及ぼさない
+  var img_star = document.createElement('img');
+  img_star.src = 'star.jpg';
+
+  
+
+
+  function allChange(mode){
       for (var i = 0; i < taglist.length; i++) {
-        taglist.item(i).className = 'open';
+        taglist.item(i).className = mode;
       }
+  }
+    function allOpen(){
+      allChange('open');
     }
 
     function allClose(){
-      for (var i = 0; i < taglist.length; i++) {
-        taglist.item(i).className = 'close';
-      }
+      allChange('close');
     }
 
-    function toggleAnswer(){
-      if (taglist.item(0).className === 'open') {
-        taglist.item(0).className = 'close';
+    function toggleAnswer(num){
+      if (taglist.item(num).className === 'open') {
+        taglist.item(num).className = 'close';
       } else {
-        taglist.item(0).className = 'open';
+        taglist.item(num).className = 'open';
       }
     }
   </script>
@@ -39,21 +51,21 @@ body{
     <button onclick="allOpen();">すべて開く</button>
     <button onclick="allClose();">すべて閉じる</button>
     <dl>
-      <dt onclick="toggleAnswer();">支払い方法は？</dt>
+      <dt onclick="toggleAnswer(0);">支払い方法は？</dt>
       <dd class="close">
         <p>各種クレジットカード、電子マネー、コンビニ払い、銀行振込、郵便振替に対応しています。</p>
         <div class="evaluate">
           役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
         </div>
       </dd>
-      <dt>キャンセル料は？</dt>
+      <dt onclick="toggleAnswer(1);">キャンセル料は？</dt>
       <dd class="close">
         <p>キャンセル料は14日前まで無料、13日～7日前は30％、6日前～2日前は50％、1日前～当日は100％になります。なお、主催者都合および大規模な自然災害によるキャンセルについては、キャンセル料は一切いただきません。</p>
         <div class="evaluate">
           役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
         </div>
       </dd>
-      <dt>予約内容を変更するには？</dt>
+      <dt onclick="toggleAnswer(2);">予約内容を変更するには？</dt>
       <dd class="close">
         <p>ご予約完了後にお送りしたメール記載のURLをWebブラウザーで開き、IDとパスワードを入力してログインし、変更手続きを行って下さい。</p>
         <div class="evaluate">
