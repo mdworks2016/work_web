@@ -4,18 +4,54 @@
   <meta charset="utf-8">
   <title>よくある質問</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+body{
+  background-color: #fff;
+}
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <h1>よくある質問</h1>
+    <p>質問をクリックすると、回答が表示されます。</p>
+    <button onclick="allOpen();">すべて開く</button>
+    <button onclick="allClose();">すべて閉じる</button>
+    <dl>
+      <dt onclick="toggleAnswer(0);">支払い方法は？</dt>
+      <dd class="close">
+        <p>各種クレジットカード、電子マネー、コンビニ払い、銀行振込、郵便振替に対応しています。</p>
+        <div class="evaluate">
+          役に立ちましたか？<a href="#" onclick="addStar(0);">はい</a>&nbsp;<a href="#" onclick="removeStar(0);">いいえ</a><br />
+        </div>
+      </dd>
+      <dt onclick="toggleAnswer(1);">キャンセル料は？</dt>
+      <dd class="close">
+        <p>キャンセル料は14日前まで無料、13日～7日前は30％、6日前～2日前は50％、1日前～当日は100％になります。なお、主催者都合および大規模な自然災害によるキャンセルについては、キャンセル料は一切いただきません。</p>
+        <div class="evaluate">
+          役に立ちましたか？<a href="#" onclick="addStar(1);">はい</a>&nbsp;<a href="#" onclick="removeStar(1);">いいえ</a><br />
+        </div>
+      </dd>
+      <dt onclick="toggleAnswer(2);">予約内容を変更するには？</dt>
+      <dd class="close">
+        <p>ご予約完了後にお送りしたメール記載のURLをWebブラウザーで開き、IDとパスワードを入力してログインし、変更手続きを行って下さい。</p>
+        <div class="evaluate">
+          役に立ちましたか？<a href="#" onclick="addStar(2);">はい</a>&nbsp;<a href="#" onclick="removeStar(2);">いいえ</a><br />
+        </div>
+      </dd>
+    </dl>
+  </div>
+<div class="">
+    <h1>スクリプトの最適化原則！</h1>
+    <ol>
+        <li>重複しているコードがあれば変数化する</li>
+    </ol>
+</div>
   <script>
 
   //ドキュメントの読み込み
   var taglist = document.getElementsByTagName('dd');
-  var elms = document.getElementsByClassName('evalute');
-  //createElementでimg要素を作成している。
-  //createElementはあくまでノード上のデータなので、DOMには影響を及ぼさない
-  var img_star = document.createElement('img');
-  img_star.src = 'star.jpg';
-
-  
-
+  //evaluateは3つあるがこれが配列で格納されている
+  var elms = document.getElementsByClassName('evaluate');
 
   function allChange(mode){
       for (var i = 0; i < taglist.length; i++) {
@@ -37,42 +73,22 @@
         taglist.item(num).className = 'open';
       }
     }
+    function addStar(num){
+        //クリックされた回数入れるには毎回starを生成する必要がある!
+        //createElementでimg要素を作成している。
+        //createElementはあくまでノード上のデータなので、DOMには影響を及ぼさない
+        var star = document.createElement('img');
+        star.src =  'star.png';
+        elms.item(num).appendChild(star);
+      }
+     function removeStar(num){
+         var elms = document.getElementsByClassName('evaluate');
+         //tagName タグ名を呼び出す ただし大文字だった
+         var elm = elms.item(num);
+         if(elm.lastChild.tagName == 'IMG'){
+             elm.removeChild(elm.lastChild);
+         }
+     }
   </script>
-  <style>
-body{
-  background-color: #fff;
-}
-  </style>
-</head>
-<body>
-  <div id="wrapper">
-    <h1>よくある質問</h1>
-    <p>質問をクリックすると、回答が表示されます。</p>
-    <button onclick="allOpen();">すべて開く</button>
-    <button onclick="allClose();">すべて閉じる</button>
-    <dl>
-      <dt onclick="toggleAnswer(0);">支払い方法は？</dt>
-      <dd class="close">
-        <p>各種クレジットカード、電子マネー、コンビニ払い、銀行振込、郵便振替に対応しています。</p>
-        <div class="evaluate">
-          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
-        </div>
-      </dd>
-      <dt onclick="toggleAnswer(1);">キャンセル料は？</dt>
-      <dd class="close">
-        <p>キャンセル料は14日前まで無料、13日～7日前は30％、6日前～2日前は50％、1日前～当日は100％になります。なお、主催者都合および大規模な自然災害によるキャンセルについては、キャンセル料は一切いただきません。</p>
-        <div class="evaluate">
-          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
-        </div>
-      </dd>
-      <dt onclick="toggleAnswer(2);">予約内容を変更するには？</dt>
-      <dd class="close">
-        <p>ご予約完了後にお送りしたメール記載のURLをWebブラウザーで開き、IDとパスワードを入力してログインし、変更手続きを行って下さい。</p>
-        <div class="evaluate">
-          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
-        </div>
-      </dd>
-    </dl>
-  </div>
 </body>
 </html>
