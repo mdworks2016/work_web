@@ -14,8 +14,8 @@ body{
   <div id="wrapper">
     <h1>よくある質問</h1>
     <p>質問をクリックすると、回答が表示されます。</p>
-    <button onclick="allOpen();">すべて開く</button>
-    <button onclick="allClose();">すべて閉じる</button>
+    <button>すべて開く</button>
+    <button>すべて閉じる</button>
     <dl>
       <dt onclick="toggleAnswer(0);">支払い方法は？</dt>
       <dd class="close">
@@ -41,18 +41,24 @@ body{
     </dl>
   </div>
 <div class="">
-    <h1>スクリプトの最適化原則！</h1>
+    <h1 id="node_test" class="node_test">あばば<span>aa</span>スクリプトの最適化原則！</h1>
     <ol>
         <li>重複しているコードがあれば変数化する</li>
     </ol>
 </div>
+
   <script>
-
-  //ドキュメントの読み込み
-  var taglist = document.getElementsByTagName('dd');
-  //evaluateは3つあるがこれが配列で格納されている
-  var elms = document.getElementsByClassName('evaluate');
-
+'use strict'
+//ただしこのやり方は画像の読み込みまで待つので、非常にレスポンスが悪くエラーを誘発する！
+//Jqueryの即時関数は画像の読み込みを待たないため、基本はそちらを使うように
+window.onload = init;
+function init(){
+      //ドキュメントの読み込み
+      var taglist = document.getElementsByTagName('dd');
+      //evaluateは3つあるがこれが配列で格納されている
+      var elms = document.getElementsByClassName('evaluate');
+      var buttons = document.getElementsByTagName('button');
+  //関数宣言
   function allChange(mode){
       for (var i = 0; i < taglist.length; i++) {
         taglist.item(i).className = mode;
@@ -89,6 +95,17 @@ body{
              elm.removeChild(elm.lastChild);
          }
      }
+     //イベントの定義付け
+     buttons.item(0).onclick = allOpen;
+     buttons.item(1).onclick = allClose;
+
+     //ノードの取り出しテスト
+     //結果：そもそもノードの呼び出しはByIdにしか対応してなかった...
+     var nodeTest =  document.getElementById('node_test').childNodes;
+     var nodeTest2 =  document.getElementById('wrapper').nextSibling;
+     console.log('わラッパの子供ノード1こめ：' + nodeTest.item(2));
+     console.log('わラッパの兄弟ノード次：' + JSON.stringify(nodeTest2));
+}
   </script>
 </body>
 </html>
