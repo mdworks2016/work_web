@@ -17,21 +17,21 @@ body{
     <button>すべて開く</button>
     <button>すべて閉じる</button>
     <dl>
-      <dt onclick="toggleAnswer(0);">支払い方法は？</dt>
+      <dt>支払い方法は？</dt>
       <dd class="close">
         <p>各種クレジットカード、電子マネー、コンビニ払い、銀行振込、郵便振替に対応しています。</p>
         <div class="evaluate">
           役に立ちましたか？<a href="#" onclick="addStar(0);">はい</a>&nbsp;<a href="#" onclick="removeStar(0);">いいえ</a><br />
         </div>
       </dd>
-      <dt onclick="toggleAnswer(1);">キャンセル料は？</dt>
+      <dt>キャンセル料は？</dt>
       <dd class="close">
         <p>キャンセル料は14日前まで無料、13日～7日前は30％、6日前～2日前は50％、1日前～当日は100％になります。なお、主催者都合および大規模な自然災害によるキャンセルについては、キャンセル料は一切いただきません。</p>
         <div class="evaluate">
           役に立ちましたか？<a href="#" onclick="addStar(1);">はい</a>&nbsp;<a href="#" onclick="removeStar(1);">いいえ</a><br />
         </div>
       </dd>
-      <dt onclick="toggleAnswer(2);">予約内容を変更するには？</dt>
+      <dt>予約内容を変更するには？</dt>
       <dd class="close">
         <p>ご予約完了後にお送りしたメール記載のURLをWebブラウザーで開き、IDとパスワードを入力してログインし、変更手続きを行って下さい。</p>
         <div class="evaluate">
@@ -51,13 +51,15 @@ body{
 'use strict'
 //ただしこのやり方は画像の読み込みまで待つので、非常にレスポンスが悪くエラーを誘発する！
 //Jqueryの即時関数は画像の読み込みを待たないため、基本はそちらを使うように
-window.onload = init;
-function init(){
       //ドキュメントの読み込み
       var taglist = document.getElementsByTagName('dd');
       //evaluateは3つあるがこれが配列で格納されている
       var elms = document.getElementsByClassName('evaluate');
       var buttons = document.getElementsByTagName('button');
+      var quertions = document.getElementsByTagName('dt');
+      for (var i = 0; i < quertions.length; i++) {
+          quertions.item(i).onclick = toggleAnswer;
+      }
   //関数宣言
   function allChange(mode){
       for (var i = 0; i < taglist.length; i++) {
@@ -71,13 +73,16 @@ function init(){
     function allClose(){
       allChange('close');
     }
-
-    function toggleAnswer(num){
-      if (taglist.item(num).className === 'open') {
-        taglist.item(num).className = 'close';
-      } else {
-        taglist.item(num).className = 'open';
-      }
+    //イベントオブジェクトは、HTMLに直書きされた関数だと入ってこない
+    //あくまで、イベントハンドラが設定された関数でなければならない
+    function toggleAnswer(event){
+        var question = event.target;
+        var answer = question.nextSibling.nextSibling;
+        if (answer.className === 'close'){
+            answer.className = 'open';
+        }else{
+            answer.className = 'close';
+        }
     }
     function addStar(num){
         //クリックされた回数入れるには毎回starを生成する必要がある!
@@ -105,7 +110,7 @@ function init(){
      var nodeTest2 =  document.getElementById('wrapper').nextSibling;
      console.log('わラッパの子供ノード1こめ：' + nodeTest.item(2));
      console.log('わラッパの兄弟ノード次：' + JSON.stringify(nodeTest2));
-}
+
   </script>
 </body>
 </html>
