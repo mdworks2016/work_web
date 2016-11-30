@@ -84,13 +84,15 @@ body{
             answer.className = 'close';
         }
     }
-    function addStar(num){
+    function addStar(event){
         //クリックされた回数入れるには毎回starを生成する必要がある!
         //createElementでimg要素を作成している。
         //createElementはあくまでノード上のデータなので、DOMには影響を及ぼさない
         var star = document.createElement('img');
         star.src =  'star.png';
-        elms.item(num).appendChild(star);
+        var link = event.target;
+        var elm = link.parentNode;
+        elm.appendChild(star);
       }
      function removeStar(num){
          var elms = document.getElementsByClassName('evaluate');
