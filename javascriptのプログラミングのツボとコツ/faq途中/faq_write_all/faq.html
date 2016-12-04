@@ -21,21 +21,21 @@ body{
       <dd class="close">
         <p>各種クレジットカード、電子マネー、コンビニ払い、銀行振込、郵便振替に対応しています。</p>
         <div class="evaluate">
-          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#" onclick="removeStar(0);">いいえ</a><br />
+          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
         </div>
       </dd>
       <dt>キャンセル料は？</dt>
       <dd class="close">
         <p>キャンセル料は14日前まで無料、13日～7日前は30％、6日前～2日前は50％、1日前～当日は100％になります。なお、主催者都合および大規模な自然災害によるキャンセルについては、キャンセル料は一切いただきません。</p>
         <div class="evaluate">
-          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#" onclick="removeStar(1);">いいえ</a><br />
+          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
         </div>
       </dd>
       <dt>予約内容を変更するには？</dt>
       <dd class="close">
         <p>ご予約完了後にお送りしたメール記載のURLをWebブラウザーで開き、IDとパスワードを入力してログインし、変更手続きを行って下さい。</p>
         <div class="evaluate">
-          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#" onclick="removeStar(2);">いいえ</a><br />
+          役に立ちましたか？<a href="#">はい</a>&nbsp;<a href="#">いいえ</a><br />
         </div>
       </dd>
     </dl>
@@ -62,10 +62,10 @@ body{
       }
       var links = document.getElementsByClassName('evaluate');
       for (var i = 0; i < links.length; i++) {
-          console.log(links.item(i).children[0]);
           //itemで配列に格納された要素を呼び出し、その中の1つめの要素であるaタグをchildrenで呼び出す
           //それにイベントハンドラを設定
           links.item(i).children[0].onclick = addStar;
+          links.item(i).children[1].onclick = removeStar;
       }
   //関数宣言
   function allChange(mode){
@@ -101,11 +101,11 @@ body{
         var elm = link.parentNode;
         elm.appendChild(star);
       }
-     function removeStar(num){
-         var elms = document.getElementsByClassName('evaluate');
-         //tagName タグ名を呼び出す ただし大文字だった
-         var elm = elms.item(num);
-         if(elm.lastChild.tagName == 'IMG'){
+     function removeStar(event){
+         var link = event.target;
+         console.log(link);
+         var elm = link.parentNode;
+         if(elm.lastChild.nodeName == 'IMG'){
              elm.removeChild(elm.lastChild);
          }
      }
