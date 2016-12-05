@@ -59,14 +59,12 @@ body{
       var quertions = document.getElementsByTagName('dt');
       for (var i = 0; i < quertions.length; i++) {
           quertions.item(i).onclick = toggleAnswer;
+          var answer = quertions.item(i).nextSibling.nextSibling;
+          var links = answer.getElementsByTagName('a');
+          links.item(0).onclick = addStar;
+          links.item(1).onclick = removeStar;
       }
       var links = document.getElementsByClassName('evaluate');
-      for (var i = 0; i < links.length; i++) {
-          //itemで配列に格納された要素を呼び出し、その中の1つめの要素であるaタグをchildrenで呼び出す
-          //それにイベントハンドラを設定
-          links.item(i).children[0].onclick = addStar;
-          links.item(i).children[1].onclick = removeStar;
-      }
   //関数宣言
   function allChange(mode){
       for (var i = 0; i < taglist.length; i++) {
