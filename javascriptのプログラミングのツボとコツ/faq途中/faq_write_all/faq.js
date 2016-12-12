@@ -12,8 +12,8 @@
         quertions.item(i).onclick = toggleAnswer;
         var answer = quertions.item(i).nextSibling.nextSibling;
         var link = answer.getElementsByTagName('a');
-        link.item(0).onclick = addStar;
-        link.item(1).onclick = removeStar;
+        link.item(0).addEventListener('click',addStar,false);
+        link.item(1).addEventListener('click',removeStar,false);
     }
     var links = document.getElementsByClassName('evaluate');
 //関数宣言
@@ -59,8 +59,8 @@ function allChange(mode){
        }
    }
    //イベントハンドラ
-   buttons.item(0).onclick = allOpen;
-   buttons.item(1).onclick = allClose;
+   buttons.item(0).addEventListener('click',allOpen,false);
+   buttons.item(1).addEventListener('click',allClose,false);
 
 
    //ノードの取り出しテスト
