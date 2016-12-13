@@ -41,6 +41,8 @@ function allChange(mode){
       }
   }
   function addStar(event){
+      //ターゲットのイベントでaタグにhrefの値をキャンセルする
+      event.preventDefault();
       //クリックされた回数入れるには毎回starを生成する必要がある!
       //createElementでimg要素を作成している。
       //createElementはあくまでノード上のデータなので、DOMには影響を及ぼさない
@@ -51,6 +53,8 @@ function allChange(mode){
       elm.appendChild(star);
     }
    function removeStar(event){
+       //ターゲットのイベントでaタグにhrefの値をキャンセルする
+       event.preventDefault();
        var link = event.target;
        console.log(link);
        var elm = link.parentNode;
