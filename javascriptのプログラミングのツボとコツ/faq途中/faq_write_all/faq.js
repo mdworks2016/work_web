@@ -22,13 +22,6 @@ function allChange(mode){
       taglist.item(i).className = mode;
     }
 }
-  function allOpen(){
-    allChange('open');
-  }
-
-  function allClose(){
-    allChange('close');
-  }
   //イベントオブジェクトは、HTMLに直書きされた関数だと入ってこない
   //あくまで、イベントハンドラが設定された関数でなければならない
   function toggleAnswer(event){
@@ -63,8 +56,8 @@ function allChange(mode){
        }
    }
    //イベントハンドラ
-   buttons.item(0).addEventListener('click',allOpen,false);
-   buttons.item(1).addEventListener('click',allClose,false);
+   buttons.item(0).addEventListener('click',function(){allChange('open');},false);
+   buttons.item(1).addEventListener('click',function(){allChange('close');},false);
 
 
    //ノードの取り出しテスト
