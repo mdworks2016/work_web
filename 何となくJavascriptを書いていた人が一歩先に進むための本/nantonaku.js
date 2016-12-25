@@ -20,3 +20,38 @@ console.log(10+'9');//109の文字列
 console.log(0.2*3);
 //整数に戻すことで誤差はなくなる
 console.log(((0.2*10)*3)/10);
+
+//比較演算子振り返り
+/// == は例えオペランド型が異なっていても、型変換して等価とみなす
+console.log(1 == true);//true
+console.log(1 == '1');//true
+
+///配列は参照先の実体が違う番地にあるため、データ上はどうやっても等価としては見られない
+var arr1 = ['Javascript','HTML','css'];
+var arr2 = ['Javascript','HTML','css'];
+console.log(arr1 == arr2);
+
+///同値比較（===）
+//Javascriptはデータ形式が寛容すぎてバグの温床になるため、基本的には同値比較を使うようにしたほうがよい。
+
+//論理演算子
+///&&と||は左辺だけが評価されて、右辺は評価されない場合があります
+console.log('論理演算子' + (10==='10'&&'AAA'==='AAA'));//false
+console.log('論理演算子' + (10==='10'||'AAA'==='AAA'));//true
+
+//*制御文
+///if else
+var a=1
+if (a===2){
+    console.log('制御文else if　1行目');
+}else if(a===3){
+    console.log('制御文else if　2行目');
+}else{
+    console.log('制御文else if　3行目');
+}
+
+///for文
+////特に注意する点は「;（セミコロン）」は次の式にいくための演算子であるから、,で複数式を立てておくことも可能！
+for (var i =1,j=1;i<3;i++,j++){
+    console.log('i+j='+(i+j));
+}
