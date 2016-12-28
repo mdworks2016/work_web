@@ -64,3 +64,34 @@ for (var m in member){
     console.log('名前は' + m);
     console.log('名前は' + member[m]);
 }
+
+///〜break/continue文
+////break 処理を任意のタイミングで抜ける
+////continue 現在のループをスキップして　次のループへ入る
+for (var i = 0;i < 100;i++){
+    if(i>=2){
+        break;
+    }
+    console.log('break/continue'+i);
+}
+
+for (var i = 0;i < 5;i++){
+    if(i!=3){
+        continue;
+    }
+    console.log('break/continue'+i);
+}
+
+label:for(var i = 1; i < 1000; i++){
+    for (var t =1; t < 10; t++){
+        var v = i * t;
+        //vが5以上になったらネスとされたネスとされループを脱出する
+        if(v > 5){
+            break label;
+        }
+        console.log(v);
+    }
+}
+
+///try catch finally文
+////例外処理、ただしオーバーヘッドが高い処理なのでむやみやたらに記述するのは問題がある
