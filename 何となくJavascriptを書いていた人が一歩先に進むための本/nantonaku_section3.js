@@ -75,3 +75,42 @@ var igarashi = new Member('啓','五十嵐',35);
 var tarama = new Member('斎','多良間',37);
 console.log(igarashi.getInfo());
 console.log(tarama.getInfo());
+
+///オブジェクトとプリミティブ型
+////プリイティブはオブジェクト（何でも入る）方以外の変数の型
+////つまりnumは実際にはnum2と同じ動きをしている、ただしnumはプロパティへのアクセスが完了した時点で
+////プリミティブ型へと戻るため、実際のタイプはオブジェクトではなくNumberとなっている。
+var num = 999;
+var num2 = new Number(999);
+
+console.log(typeof num);
+console.log(typeof num2);
+
+console.log(num.toString());
+console.log(num2.toString());
+
+///Javascriptは他の言語と違ってやりたい放題
+////下記の例は一度宣言したオブジェクトでも、あとからどうとでも変更が加えられてしまう、ということ
+var obj = {
+    prop1 : 'bar',
+    prop2 : 'foo'
+}
+
+console.log(obj.prop1); // bar
+delete obj.prop1; // プロパティを削除
+console.log(obj.prop1); //undefined
+
+///Objectオブジェクト
+////Objectのコンストラクタを定義していないくても直接宣言出来てしまう
+////その簡便さがJavascript の罠
+
+var obj = new Array();
+obj.val = 'hoge';
+console.log(obj.val);//hoge
+
+///Global オブジェクト
+////このオブジェクトはインスタンス化、メソッドの呼び出しは不可
+
+var num = 10;
+console.log(isNaN(num));
+////(isNaNがグローバル関数)
