@@ -114,3 +114,12 @@ console.log(obj.val);//hoge
 var num = 10;
 console.log(isNaN(num));
 ////(isNaNがグローバル関数)
+
+///Nullとundefinedの違い
+////Nullは定義しないとでない、undefinedは定義されていないと出る
+
+var nuller = null;
+var oioi
+
+console.log(nuller);//null
+console.log(oioi);//undifined
