@@ -4,6 +4,8 @@
 ///4-2-2 何と関数は変数に代入できます！
 //4-3 変数のスコープ
 ///4-3-1 ややこしいぞ!グローバル変数とローカル変数
+//4-4 argumentsオブジェクト
+///4-4-1 関数のやりたい放題に触れる
 
 function addNumber(num1,num2){
     return num1 + num2;
@@ -37,3 +39,12 @@ function getVal(){
 
 console.log(getVal()); //Local!
 console.log(val); // Global!
+
+///4-4-1 関数のやりたい放題に触れる
+function showVal(val){
+    console.log(val);
+}
+
+showVal(); //undefined
+showVal('bar'); //bar
+showVal('hoge','foo'); //hoge
