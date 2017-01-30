@@ -48,3 +48,11 @@ function showVal(val){
 showVal(); //undefined
 showVal('bar'); //bar
 showVal('hoge','foo'); //hoge
+
+///4-4-1 引数のチェックなしに対抗するargumentsオブジェクト
+
+var addFunc = function(){
+    console.log(arguments[0] + arguments[1]);
+}
+
+addFunc(1,2);//3
