@@ -49,10 +49,37 @@ showVal(); //undefined
 showVal('bar'); //bar
 showVal('hoge','foo'); //hoge
 
-///4-4-1 引数のチェックなしに対抗するargumentsオブジェクト
+///4-4-2 引数のチェックなしに対抗するargumentsオブジェクト
 
 var addFunc = function(){
     console.log(arguments[0] + arguments[1]);
 }
 
 addFunc(1,2);//3
+
+///4-4-3 すごいぞargumentsオブジェクト
+
+var addFunc = function (val1, val2){
+    if(arguments.length != 2){
+        throw new Error('引数が不正です!');
+    }
+    console.log(val1 + val2);
+}
+addFunc(10,10); //20
+//addFunc(1); 例外発生
+
+///4-4-4 argumentsオブジェクトを使えば可変長数も実装可能
+
+var addFunc = function(){
+    var result = 0;
+    //引数の数だけforを回す
+    //これにより、自由に引数の数を変えても答えが返ってくる
+    for(var i=0 ; i< arguments.length; i++){
+        //Argumentsというコレクションオブジェクトの中に入っている引数を出してくる
+        result += arguments[i];
+    }
+    console.log(result);
+}
+
+addFunc(1,1); //2
+addFunc(1,2,3,4,5); //15
