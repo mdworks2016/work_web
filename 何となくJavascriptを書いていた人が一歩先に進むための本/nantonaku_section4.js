@@ -83,3 +83,23 @@ var addFunc = function(){
 
 addFunc(1,1); //2
 addFunc(1,2,3,4,5); //15
+
+///4-5 Javascriptは引数に名前をつけることができる
+
+function showInfo(args){
+    var name = args.name;
+    var age = args.age;
+    console.log(name + '' + age);
+}
+showInfo({name:'iga',age:35});
+showInfo({age:37,name:'tara'});
+
+//4-6 高階関数、JavascriptにおいてはFunctionもデータ型の一部なので
+//関数の中の引数として利用できる、それが高階関数
+function higherOrder (values,fnc){
+    for (var val in values){
+        //つまりfucが宣言したfunctionに置き換えられて実行される!
+        fnc(values[val]);
+    }
+}
+higherOrder([1,3,5],function(val){alert(val)});
