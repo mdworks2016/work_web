@@ -131,3 +131,52 @@ function outerFunc(){
 //Global
 console.log(x);
 outerFunc()
+
+
+///4-7スコープチェーン2回目
+////Javascript内での変数はCallオブジェクトに一括して格納されていく
+////グローバル関数→outerFunc→innerFuncの順で内側にある変数ほど、Callオブジェクトの先頭に追加される
+////変数を読み込むときはリストの先頭からたどって、一番先に合致した変数名が採用される。
+
+var a = 'Global';
+var b = 'Global';
+function outerFunc(){
+    var a = 'Local Outer';
+    function innerFunc(){
+        var a = 'Local Inner';
+        var b = "更新されました";
+        //Local inner
+        console.log(a);
+
+        //更新されました
+        console.log(b);
+
+        //undefined
+        //console.log(z);
+    }
+    //Local Outer
+    console.log(a);
+    innerFunc();
+    //Global　結局スコープチェーンは深堀はされない
+    console.log(b + 'アウターの最後');
+}
+//Global
+console.log(a);
+outerFunc();
+
+///4-8クロージャ
+////これを覚えればJavascript中級者は名乗ってもおk
+////本来なら破棄されるはずのcountがなぜか関数の起動をまたいでも生きているのはなぜか？という点
+function closure(initVal){
+    var count = initVal;
+
+    var innerFunc = function(){
+        return ++count;
+    };
+    return innerFunc;
+}
+
+var myClosure = closure(100);
+console.log(myClosure());//101
+console.log(myClosure());//102
+console.log(myClosure());//103
