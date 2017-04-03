@@ -108,30 +108,23 @@ higherOrder([1,3,5],function(val){console.log(val)});
 ////Javascript内での変数はCallオブジェクトに一括して格納されていく
 ////グローバル関数→outerFunc→innerFuncの順で内側にある変数ほど、Callオブジェクトの先頭に追加される
 ////変数を読み込むときはリストの先頭からたどって、一番先に合致した変数名が採用される。
-
+console.log('4-7スコープチェーン');
 var x = 'Global';
 var y = 'Global';
+
 function outerFunc(){
     var x = 'Local Outer';
     function innerFunc(){
         var x = 'Local Inner';
-        //Local inner
         console.log(x);
-
-        //Global
         console.log(y);
-
-        //undefined
-        //console.log(z);
+        console.log(z);
     }
-    //Local Outer
     console.log(x);
     innerFunc();
 }
-//Global
 console.log(x);
-outerFunc()
-
+outerFunc();
 
 ///4-7スコープチェーン2回目
 ////Javascript内での変数はCallオブジェクトに一括して格納されていく
