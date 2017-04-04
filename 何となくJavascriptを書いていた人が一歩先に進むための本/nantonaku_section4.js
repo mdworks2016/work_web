@@ -157,19 +157,24 @@ function outerFunc(){
 console.log(a);
 outerFunc();
 
-///4-8クロージャ
+///4-8クロージャ2回目
 ////これを覚えればJavascript中級者は名乗ってもおk
 ////本来なら破棄されるはずのcountがなぜか関数の起動をまたいでも生きているのはなぜか？という点
 function closure(initVal){
+    //毎回initValが代入される
     var count = initVal;
-
     var innerFunc = function(){
+        //関数内のcountはvar myClosureが消されるまで保持される。
         return ++count;
     };
     return innerFunc;
 }
 
 var myClosure = closure(100);
+console.log('■4-8クロージャー');
+//リターン文が関数以外だとエラーになる原因は
+//myClosureを関数で宣言しているのでretrneが関数でないと
+//エラーになってしまうから。
 console.log(myClosure());//101
 console.log(myClosure());//102
 console.log(myClosure());//103
