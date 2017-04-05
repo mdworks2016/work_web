@@ -178,3 +178,23 @@ console.log('■4-8クロージャー');
 console.log(myClosure());//101
 console.log(myClosure());//102
 console.log(myClosure());//103
+
+///4-9クロージャ3回目
+////これを覚えればJavascript中級者は名乗ってもおk
+////本来なら破棄されるはずのcountがなぜか関数の起動をまたいでも生きているのはなぜか？という点
+function closure(initVal){
+    var count = initVal;
+    var innerFunc = function(){
+        return ++count;
+    };
+    return innerFunc;
+}
+
+var myClosure = closure(100);
+var myClosure2 = closure(200);
+
+console.log('■4-8-2クロージャー2回目');
+console.log(myClosure());//101
+console.log(myClosure());//102
+console.log(myClosure2());//201
+console.log(myClosure2());//202
