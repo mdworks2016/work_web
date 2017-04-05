@@ -1,0 +1,122 @@
+@charset "utf-8";
+
+/*
+==================================================================================
+
+CSS HACK
+
+==================================================================================
+*/
+
+.clearfix:after{
+	content:"."; 
+	display:block; 
+	height:0; 
+	clear:both; 
+	font-size: 0.1em;
+	line-height: 0;
+	visibility:hidden;
+	}
+.clearfix{display:inline-block;}
+/* Hides from IE-mac */
+*html .clearfix{height:1%;}
+.clearfix{display:block;}
+/* End hide from IE-mac */
+
+/*
+==================================================================================
+
+フォントサイズ指定
+
+==================================================================================
+*/
+/*
+	Font-size Adjustment.
+	1.0em = 10px
+	1.2em = 12px
+	1.4em = 14px
+	1.6em = 16px
+	1.8em = 18px
+*/
+
+body {
+	font-size:10px;
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "メイリオ", Meiryo, sans-serif;
+	line-height:1.8;
+	}
+
+* html body {/*IE6*/
+	font-size:60%;
+	letter-spacing: 1px;
+	}
+
+*:first-child+html body {/*IE7*/
+	font-size:58%;
+	letter-spacing: 1px;
+	}
+
+table {
+	font-size: 1.0em;
+	}
+
+h1,h2,h3,h4,h5,h6 {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 1.0em;
+}
+
+input,textarea{
+	font-size: 1.0em;
+}
+
+
+
+/*
+==================================================================================
+
+BODYに背景画像を指定したときに1pxずれるのを解消
+
+==================================================================================
+*/
+
+html>/**/body,x:-moz-any-link {/*firefox3*/
+	margin-left: -1px;
+}
+
+* html body {/*IE6*/
+	padding-left: 1px;
+}
+
+*:first-child+html body {/*IE7*/
+	padding-left: 1px;
+}
+
+/*
+==================================================================================
+
+共通タグ
+
+==================================================================================
+*/
+
+html,body,div,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,dl,dt,dd,table,th,td{
+	padding: 0;
+	margin: 0;
+}
+
+img{
+	border-width: 0;
+}
+
+ul,ol,li{
+	list-style:none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+a{ outline: none; }
+a:link  {text-decoration:none !important;}
+a:hover {text-decoration:none !important;}
+a:visited {text-decoration:none !important;}
