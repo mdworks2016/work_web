@@ -60,3 +60,31 @@ var smartPhone = new Phone('smart phone');
 
 console.log(featurePhone.getName()); //feature phone
 console.log(smartPhone.getName()); //smart phone
+
+//5-3-1 プロトタイプチェーン
+///プロトタイプチェーンを使った継承方法
+
+var Phone = function(){};
+Phone.prototype = {
+  getOwner: function(){console.log('Owner is'+this.owner);}
+};
+
+var SmartPhone = function(owner){ this.owner= owner};
+SmartPhone.prototype = new Phone();
+SmartPhone.prototype.tap = fuction(){console.log('tap!')};
+
+var myPhone = new SmartPhone('igarashi');
+myPhone.getOwner();
+myPhone.tap();
+
+/*1.関数の継承
+  SmartPhoneオブジェクトの中に入っている関数のプロトタイプに
+  Phoneを継承させて使えるようにしている */
+/*2.関数継承の範囲
+  グローバルオブエジェクトが消えなければ永遠にFunctionを参照し頭間にできるので
+  otherPhoneにも同様のプロパティを備えることができる。
+*/
+
+var otherPhone = new SmartPhone('tarama');
+otherPhone.getOwner();
+otherPhone.tap();
