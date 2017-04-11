@@ -1,3 +1,4 @@
+/*　エクスクラメーション先頭はbool値を返したいから　*/
 ! function(n) {
     function o(a) {
         if (e[a]) return e[a].exports;
@@ -6,11 +7,16 @@
             id: a,
             loaded: !1
         };
+        /* テキストの動きはここでリターンされて実行に回されている */
         return n[a].call(t.exports, t, t.exports, o), t.loaded = !0, t.exports
     }
+    /* 配列宣言 */
     var e = {};
+    console.log(e);
     return o.m = n, o.c = e, o.p = "", o(0)
-}([function(n, o, e) {
+}
+/* 紛らわしいがここから実行関数 */
+([function(n, o, e) {
     "use strict";
 
     function a(n) {
@@ -153,6 +159,9 @@
     Object.defineProperty(o, "__esModule", {
         value: !0
     });
+    //【超重要】 window.$;
+    //eにjQueryの$を代入させてe()＝$()となるような挙動にしている
+    //そのため、同function内部ではe()で統一されている。
     var e = window.$;
     o.default = {
         startMainViewAnimation: function() {
@@ -209,6 +218,7 @@
             }, 5500)
         },
         startMyDrinkAnimation: function() {
+          // 1e3は1000のショートハンド
             function n() {
                 a.addClass("show"), r.addClass("movedown"), d.addClass("show"), setTimeout(function() {
                     t.addClass("show"), r.addClass("movedown2"), d.addClass("movedown"), u.addClass("show")
@@ -234,6 +244,7 @@
                 d = e("#explanation1__phone__display--2"),
                 u = e("#explanation1__phone__display--3"),
                 c = e("#explanation1__phone__display--4");
+            //nを実行して、タイマーでn()をループさせている。
             n(), setInterval(function() {
                 n()
             }, 6 * o * 1e3)
