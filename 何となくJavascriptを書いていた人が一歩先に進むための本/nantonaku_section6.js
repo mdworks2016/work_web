@@ -20,3 +20,17 @@ arr[0] = 2;
 console.log(arr); //[2,3,5]
 
 }());
+
+//6.4テンプレート文字
+///テンプレート文字とはPHPのヒアドキュメントと同じようなもの
+///メリット1:改行をそのままかける
+///メリット2：変数を文字列に埋め込める
+///メリット2すげー
+
+let val = `Java
+Script`;
+console.log(val);
+
+let name = `igarashi`;
+let str = `My name is ${name}!`;
+console.log(str);
