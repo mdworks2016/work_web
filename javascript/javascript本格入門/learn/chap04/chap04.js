@@ -1,4 +1,22 @@
 
+
+//【4.1 関数とは】
+//* 4.1.3 関数リテラル表現
+(function(){
+  var getTriangle = function(base,height){
+    return base * height / 2;
+  };
+  console.log('4.1.3 関数リテラル表現'+'三角形の面積：'+ getTriangle(5,2)); //結果　5
+})();
+
+//* 4.1.4 アロー関数で定義する[ES2015]
+(function(){
+  let getTriangle = (base,height) => {
+    return base * height / 2;
+  };
+  console.log('4.1.4 アロー関数で定義する'+'三角形の面積：'+ getTriangle(5,2)); //結果　5
+})();
+
 //【ES2015における引数の記法】
 //* ES2015では引数の記法として、以下がとても楽に記述できるようになった
 //* 1.引数のデフォルト値　2.可変長引数　3.名前付き引数
@@ -85,3 +103,49 @@ let member = {
   address : 't_yamada@example.com'
 };
 show(member);
+
+//* 4.6 関数の呼び出しと戻り値
+//** 4.6.1 複数の戻り値を個別の変数に格納する
+//*** 関数の戻り値を複数持ちたい場合、ES2015からできるようになった
+function getMaxMin(...nums){
+  // ... は可変長引数（どこまでも伸びる引数）
+  return [Math.max(...nums),Math.min(...nums)];
+}
+
+let result = getMaxMin(10,3,5);
+console.log(result);//結果：配列で10と3が返ってくる
+
+//変数を分割代入している
+let [max,min] = getMaxMin(10,3,5);
+console.log(max);
+console.log(min);
+
+//** 4.6.2 関数自身を再帰的に呼び出す -再帰関数-
+//***つまり例えばnが2の場合構造的にこうなる
+/*
+function(n){
+  （n = 2）
+  if(n!=0){
+    return n * factorial(n-1){              |ここは戻り値が2*2-1で引数が1
+      （n = 1）
+      if(n!=0){
+        return n * factorial(n-1){          |ここは戻り値が
+          （n = 0）
+          if(n!=0){ 0なのでこっちは無視 }
+          else{return 1}                    |ここで1がかえる
+        }
+      }
+    }
+  }
+}
+
+
+*/
+function factorial(n){
+  if(n!=0){
+    return n * factorial(n-1);
+  }else{
+    return 1;
+  }
+}
+console.log('4.6.2 再帰関数：'+factorial(5));
