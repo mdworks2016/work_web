@@ -7,7 +7,8 @@ html {
 }
 
 body {
-  margin: 0
+  margin: 0;
+  padding: 60px;
 }
 
 article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {
@@ -472,102 +473,51 @@ body.ja .mainLogo__txt.txt2_12 {
 /*　2-1.色かぶせ　*/
 
 /*テキストモーション*/
-
-/*/////s2/////*/
-  .s2 .text-box{
-	padding:100px 0 50px;
-	text-align:center;
+.textColor1 .text-box span.back1{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#e970a5;
+  display:block;
+  top:0;
+  right:0;
 }
-  .s2 .text-box h2{
-	font-family: 'Teko', sans-serif;
-	font-size:3em;
-	line-height:1.1em;
-	letter-spacing:0.5em;
-	font-weight:200;
-	margin-left:0.5em;
-	color:#e970a5;
-	position:relative;
-	display:inline-block;
+.textColor1 .text-box span.back2{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ddd23c;
+  display:block;
+  top:0;
+  right:0;
 }
-  .s2 .text-box h3{
-	color:#e970a5;
-	font-size:1.2em;
-	line-height:1.4em;
-	letter-spacing:0.3em;
-	margin-left:0.3em;
-	position:relative;
-	display:inline-block;
+.textColor1 .text-box{
+  padding:100px 0 50px;
+  text-align:left;
 }
-  .s2 .text-box p.text{
-	margin-top:50px;
-	line-height:2.5em;
+.textColor1 .text-box h2{
+  font-family: 'Teko', sans-serif;
+  font-size:3em;
+  line-height:1.1em;
+  letter-spacing:0.5em;
+  font-weight:200;
+  margin-left:0.5em;
+  color:#e970a5;
+  position:relative;
+  display:inline-block;
 }
-@media screen and (max-width: 1500px) , (max-device-width : 1500px) {
-	  .top .text-box h2 {
-		font-size: 3.5em;
-	}
+.textColor1 .text-box h3{
+  color:#e970a5;
+  font-size:1.2em;
+  line-height:1.4em;
+  letter-spacing:0.3em;
+  margin-left:0.3em;
+  position:relative;
+  display:inline-block;
 }
-@media screen and (max-width: 1300px) , (max-device-width : 1300px) {
-	  .top .text-box h2 {
-		font-size: 3em;
-	}
-	/*PRICE*/
-	  .s5 .text-box2 .view-box .price .table-box{
-		width:80%;
-	}
-}
-@media screen and (max-width: 1100px) , (max-device-width : 1100px) {
-	  .top .text-box h2 {
-		font-size: 2.5em;
-	}
-}
-@media screen and (max-width: 1050px) , (max-device-width : 1050px) {
-	  .item{
-		width:80%;
-		padding:0 10%;
-	}
-	  .footer{
-		padding:0;
-		margin:0 10%;
-	}
-	  .s2 .image{
-		width:80%;
-	}
-	  .s2 .image img{
-		width:100%;
-	}
-	  .s2 .text-box p br,
-	  .s3 .text-box p br,
-	  .s3 p.text br,
-	  .s4 .text-box1 p br,
-	  .s5 .text-box1 p br,
-	  .s5 .text-box2 .view-box p.text-main br{
-		display:none;
-	}
-
-.s2 .text-box h2{
-	font-family: 'Teko', sans-serif;
-	font-size:3em;
-	line-height:1.1em;
-	letter-spacing:0.5em;
-	font-weight:200;
-	margin-left:0.5em;
-	color:#e970a5;
-	position:relative;
-	display:inline-block;
-}
-.s2 .text-box h3{
-	color:#e970a5;
-	font-size:1.2em;
-	line-height:1.4em;
-	letter-spacing:0.3em;
-	margin-left:0.3em;
-	position:relative;
-	display:inline-block;
-}
-.s2 .text-box p.text{
-	margin-top:50px;
-	line-height:2.5em;
+.textColor1 .text-box p.text{
+  margin-top:50px;
+  line-height:2.5em;
 }
 
 /*写真拡大アニメーション*/
