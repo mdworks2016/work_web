@@ -110,3 +110,129 @@ hoge.call(obj2); //結果：obj2 data
   d.bark();
 
 })();
+
+//5.3.2 継承関係は動的に変更可能
+/*何が言いたいのかというと
+  コードの末尾でDogにはanimalのプロトタイプが入っているのでwalkはだだだになるはず
+  ところがトコトコと出てくる
+  つまり
+  初回の継承時点でd1に入ったプロトタイプは固定されるということ
+*/
+(function(){
+  'use strict'
+  var Animal = function(){};
+  var word = '5.3.2 継承関係は動的：'
+
+  Animal.prototype = {
+    walk : function(word){
+      console.log(word + 'トコトコ');
+    }
+  }
+
+  var SuperAnimal = function(){};
+  SuperAnimal.prototype = {
+    walk : function(word){
+      console.log(word + 'だだだだだ！');
+    }
+  }
+
+  var Dog = function(){};
+  Dog.prototype = new Animal();
+  var d1 = new Dog();//この時点でDogのプロトタイプが固定されている
+  d1.walk(word);//結果：トコトコ
+
+  Dog.prototype = new SuperAnimal();
+  var d2 = new Dog();
+  d2.walk(word);//結果：だだだだだ！
+  d1.walk(word);//結果：トコトコ
+
+})();
+
+//5.4 継承関係は動的に変更可能
+//5.4.1 プライベートメンバーを定義する
+/*
+パブリックメンバーはクラス外から自由にアクセス可能なのか検証
+*/
+//失敗例
+(function(){
+  'use strict'
+  function Triangle_pablic(){
+    var _base = 10;
+    var _height = 5;
+    var word = '5.4.1 プライベートメンバーを定義する：'
+
+    this.output = function(){
+      return _base * _height;
+    }
+
+  }
+
+  var t = new Triangle_pablic();
+  t._base = 4;
+  t._height = 5;
+  //どのよにやってもプライベートメンバーへは上書きできないし、あくせすもできない
+
+  console.log(t.output());
+
+})();
+
+//成功例
+(function(){
+  'use strict'
+  var word = {
+    comment : '5.4.1 プライベートメンバーを定義する：'
+  }
+  function TrianglePrivate(){
+
+    var num = {
+      _base : '',
+      _height : '',
+    }
+    //引数valが正の値かをチェックするためのスクリプト
+    var _checkArgs = function(val){
+      return (typeof val == 'number' && val > 0);
+    }
+
+    //プライベートメンバーにアクセスするためのメソッドを定義
+    this.setBase = function(base){
+      //正の値かチェックを挟んでからプライベートプロパティの_baseに格納する
+      if(_checkArgs(base)){
+        num._base = base;
+      }
+    }
+
+    this.getBase = function() {
+      return num._base;
+    }
+
+    this.setHeight = function(height){
+      //仕組みはbaseと同じ
+      if(_checkArgs(height)){
+        num._height = height;
+      }
+    }
+    this.getHeight = function(){
+      return num._height;
+    }
+  }
+
+  //プライベートメンバーにアクセスしない普通のメソッドを定義
+  //つまり コンストラクタさえ作ってしまえば
+  //var 内部にはアクセスできないが、this.メソッドにはアクセスできるということ
+  TrianglePrivate.prototype.getArea = function(){
+    return this.getBase() * this.getHeight() / 2;
+  }
+
+  var t = new TrianglePrivate();
+  t._base = 10;
+  t._height = 2;
+  //プライベートメンバーにアクセスできていないので初期値が返ってくる
+  console.log(word.comment + '三角形の面積：' + t.getArea());
+
+  t.setBase(10);
+  t.setHeight(2);
+  console.log(word.comment + '三角形の底辺：' + t.getBase());
+  console.log(word.comment + '三角形の高さ：' + t.getHeight());
+  console.log(word.comment + '三角形の面積：' + t.getArea());
+
+})();
