@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://web.tuat.ac.jp/~sugiura/index.html -->
+<html lang="ja" class="desktop landscape is_chrome is_page_jumped is_in_home is_page_loaded"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<link href="./SugiuraLab-files/style.css" rel="stylesheet" type="text/css">
+<title>Sugiura Lab | 杉浦研究室</title>
+<!--
+<meta name="description" content="杉浦研究室では、将来の情報通信ネットワークのコアとなるワイヤレス通信技術の創造を目指して、信号処理、伝送方式、ネットワーク、理論・数値解析、プロトコル、セキュリティなどの基礎研究を行っています。また、現在の技術の枠にとらわれない学際的な研究にも取り組んでいます。">
+<meta property="og:title" content="Sugiura Lab | 杉浦研究室">
+<meta property="og:description" content="杉浦研究室では、将来の情報通信ネットワークのコアとなるワイヤレス通信技術の創造を目指して、信号処理、伝送方式、ネットワーク、理論・数値解析、プロトコル、セキュリティなどの基礎研究を行っています。また、現在の技術の枠にとらわれない学際的な研究にも取り組んでいます。">
+<meta property="og:image" content="http://web.tuat.ac.jp/~sugiura/asset/img/fb.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://web.tuat.ac.jp/~sugiura/asset/img/f/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="http://web.tuat.ac.jp/~sugiura/asset/img/f/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://web.tuat.ac.jp/~sugiura/asset/img/f/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://web.tuat.ac.jp/~sugiura/asset/img/f/manifest.json">
+<link rel="mask-icon" href="http://web.tuat.ac.jp/~sugiura/asset/img/f/safari-pinned-tab.svg">
+<meta name="theme-color" content="#ffffff">
+-->
+<!--
+<script async="" src="./SugiuraLab-files/analytics.js"></script><script>
+var ga = false;
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+// Googleアナリティクスを利用する場合は以下のIDを確認しコメントアウトを削除
+ga('create', 'UA-42724716-1', 'auto');
+ga('send', 'pageview');
+</script>
+-->
+
+<script src="./SugiuraLab-files/jquery.mousewheel.min.js"></script>
+<!--
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style>
+-->
+</head>
+
+<body>
+
+  <noscript>
+    &lt;div class="error-document no-script"&gt;
+      &lt;div class="body"&gt;
+        &lt;p&gt;このWebサイトの全ての機能を利用するためにはJavaScriptを有効にする必要があります。&lt;br/&gt;&lt;a href="http://www.enable-javascript.com/ja/" target="_blank"&gt;あなたのWebブラウザーでJavaScriptを有効にする方法&lt;/a&gt;を参照してください。&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;&lt;!-- .error-document --&gt;
+  </noscript>
+
+  <header>
+    <div class="header">
+      <div class="body">
+        <div class="in">
+          <h2 class="logoes-ol">
+            <a href="http://web.tuat.ac.jp/~sugiura/index.html" class="table">
+              <span class="cell">
+                <span class="logoes-mark"></span>
+                <span class="logoes-txt">Sugiura Lab</span>
+              </span>
+            </a>
+          </h2>
+          <nav>
+            <div class="global-navi-wrap">
+              <div class="global-navi-ol">
+                <ul class="global-navi">
+                  <li class="n-page-home active"><a href="http://web.tuat.ac.jp/~sugiura/index.html"><span class="bg gr-di"></span><span class="t">ホーム</span></a></li>
+                  <li class="n-page-work"><a href="http://web.tuat.ac.jp/~sugiura/work.html"><span class="bg gr-di"></span><span class="t">研究テーマ</span></a></li>
+                  <li class="n-page-publications"><a href="http://web.tuat.ac.jp/~sugiura/publications.html"><span class="bg gr-di"></span><span class="t">研究業績</span></a></li>
+                  <li class="n-page-awards"><a href="http://web.tuat.ac.jp/~sugiura/awards.html"><span class="bg gr-di"></span><span class="t">受賞 / 助成</span></a></li>
+                  <li class="n-page-members"><a href="http://web.tuat.ac.jp/~sugiura/members.html"><span class="bg gr-di"></span><span class="t">メンバー</span></a></li>
+                  <li class="n-page-news"><a href="http://web.tuat.ac.jp/~sugiura/news.html"><span class="bg gr-di"></span><span class="t">ニュース</span></a></li>
+                  <li class="n-page-lectures"><a href="http://web.tuat.ac.jp/~sugiura/lectures.html"><span class="bg gr-di"></span><span class="t"><i class="i i-lock"></i> 講義</span></a></li>
+                </ul>
+              </div>
+              <div class="lang-ol">
+                <ul class="lang">
+                  <li class="active"><a class="change-lang" href="http://web.tuat.ac.jp/~sugiura/index.html">JP</a></li>
+                  <li><a class="change-lang" href="http://web.tuat.ac.jp/~sugiura/en/index.html">EN</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div><!-- .body -->
+    </div><!-- .header -->
+  </header>
+
+  <a href="http://web.tuat.ac.jp/~sugiura/index.html#" class="back-to-top back-to-header pad-hidden" style="right: 0px;"><i class="i i-up"></i></a>
+
+  <div class="header-support pad">
+    <div class="in">
+      <div class="logoes-ol">
+        <a href="http://web.tuat.ac.jp/~sugiura/index.html" class="table">
+          <span class="cell">
+            <span class="logoes-mark"></span>
+            <span class="logoes-txt">Sugiura Lab</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toggle-ol pad">
+    <div class="in">
+      <div class="toggle">
+        <span class="hr t1"></span>
+        <span class="t2">
+          <span class="in">
+            <span class="hr t2-1"></span>
+            <span class="hr t2-2"></span>
+          </span>
+        </span>
+        <span class="hr t3"></span>
+      </div>
+    </div>
+  </div><!-- .toggle-ol -->
+
+  <div id="page-wrapper" class="page-container" aria-live="polite">
+
+<!-- .load-body -->
+<div class="load-body" data-namespace="home" data-lang="jp" style="visibility: visible; opacity: 1;">
+
+  <span class="get-page-info" data-page="home"></span>
+
+  <div class="first-view" style="height: 763px;">
+    <div class="in">
+      <div class="table">
+        <div class="cell">
+          <div class="body">
+            <h1 class="main-title">
+              <span>Communications and Signal</span>
+              <span>Processing Lab</span>
+            </h1>
+            <span class="spacer" data-n="0.5" style="height: 30px;"></span>
+            <figure class="support-title">東京農工大学 杉浦研究室</figure>
+          </div>
+        </div>
+      </div><!-- .table -->
+      <div class="scroll">
+        <div class="in">
+          <i class="i i-kdown"></i>
+          <svg class="mouse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 39">
+            <path class="path path-front" d="M12.49,38.25A11.8,11.8,0,0,1,.74,26.41V12.58A11.8,11.8,0,0,1,12.49.74h0A11.8,11.8,0,0,1,24.24,12.58V26.41A11.8,11.8,0,0,1,12.49,38.25h0"></path>
+            <path class="path path-back" d="M12.49,38.25A11.8,11.8,0,0,1,.74,26.41V12.58A11.8,11.8,0,0,1,12.49.74h0A11.8,11.8,0,0,1,24.24,12.58V26.41A11.8,11.8,0,0,1,12.49,38.25h0"></path>
+          </svg>
+          <!-- <span class="vr"></span> -->
+        </div>
+      </div><!-- .scroll -->
+      <canvas id="js-background-renderer" width="1200" height="763" style="width: 1200px; height: 763px; left: 50%; margin-left: -600px;"></canvas><!-- .js-background-renderer -->
+    </div>
+  </div>
+
+  <div class="contents">
+
+    <section>
+      <div class="section section-theme-ol">
+
+        <div class="section-theme section-add-bg">
+          <div class="table">
+            <div class="cell">
+              <div class="body">
+                <div class="box-half">
+                  <span class="spacer sp" data-n="2" style="height: 120px;"></span>
+                  <h2 class="sub-title fade is_over"><span>研究テーマ</span></h2>
+                  <span class="spacer" data-n="1" style="height: 60px;"></span>
+                  <p class="fade is_over">杉浦研究室では、将来の情報通信ネットワークのコアとなるワイヤレス通信技術の創造を目指して、信号処理、伝送方式、ネットワーク、理論・数値解析、プロトコル、セキュリティなどの基礎研究を行っています。また、現在の技術の枠にとらわれない学際的な研究にも取り組んでいます。</p>
+                  <span class="spacer sp-hidden" data-n="1" style="height: 60px;"></span>
+                  <span class="spacer sp" data-n="2" style="height: 120px;"></span>
+                  <a href="http://web.tuat.ac.jp/~sugiura/work.html" class="fade links is_over">
+                    <span class="in">
+                      <span class="gr-di bg"></span>
+                      <span class="t">See more</span>
+                    </span>
+                  </a><!-- .links -->
+                  <span class="spacer sp" data-n="2" style="height: 120px;"></span>
+                </div>
+              </div><!-- .body -->
+            </div>
+          </div>
+        </div><!-- .body-half -->
+
+        <div class="section-bg slides-wrap-ol section-bg-half">
+          <div class="in">
+            <div class="slides-wrap scroll-obj gr-di" data-float="{&quot;slowmo&quot;:&quot;10&quot;}">
+              <div class="in slides-ol cf">
+                <div class="slides in">
+                  <div class="cover is_loaded" data-src="SugiuraLab-files/images/bg_index_theme_3.jpg" style="background-image: url(&quot;images/bg_index_theme_3.jpg&quot;); background-position: center center; background-size: cover;"></div>
+                </div>
+                <div class="slides in">
+                  <div class="cover is_loaded" data-src="SugiuraLab-files/images/bg_index_theme_1.jpg" style="background-image: url(&quot;images/bg_index_theme_1.jpg&quot;); background-position: center center; background-size: cover;"></div>
+                </div>
+                <div class="slides in">
+                  <div class="cover is_loaded" data-src="SugiuraLab-files/images/bg_index_theme_2.jpg" style="background-image: url(&quot;images/bg_index_theme_2.jpg&quot;); background-position: center center; background-size: cover;"></div>
+                </div>
+                <div class="slides in">
+                  <div class="cover is_loaded" data-src="SugiuraLab-files/images/bg_index_theme_3.jpg" style="background-image: url(&quot;images/bg_index_theme_3.jpg&quot;); background-position: center center; background-size: cover;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="control fade is_over">
+              <div class="in cf">
+                <span class="arrow arrow-to-left i i-kl"></span>
+                <span class="arrow arrow-to-right i i-kr"></span>
+              </div>
+            </div>
+          </div>
+        </div><!-- .section-bg -->
+
+      </div><!-- .section -->
+    </section>
+
+    <span class="spacer sp-hidden" data-n="3" style="height: 180px;"></span>
+    <span class="spacer sp" data-n="2" style="height: 120px;"></span>
+
+    <section>
+      <div class="section">
+        <div class="body">
+          <h2 class="sub-title fade is_over"><span>研究業績</span></h2>
+
+          <span class="spacer" data-n="1" style="height: 60px;"></span>
+
+          <div class="show-public-ol cf">
+            <div class="show-publics">
+              <div class="show-publics-header">
+                <h3 class="show-public-title fade is_over">Refereed Journal Papers</h3>
+              </div><!-- .show-publics-header -->
+              <div class="show-publics-body">
+                <div class="n-publics fade is_over">54</div>
+                <div class="show-public-footer fade is_over">
+                  <div class="table">
+                    <div class="cell">
+                      <div class="n-publics-ieee">
+                        <span class="icon-ieee"></span>
+                        <span class="n-publics-ieee-n">47</span>
+                        <span class="n-publics-ieee-sla">/</span>
+                        <span class="n-publics-ieee-m">54</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- .show-publics-body -->
+            </div><!-- .show-publics -->
+            <div class="show-publics">
+              <div class="show-publics-header">
+                <h3 class="show-public-title fade is_over">Refereed International<br>Conference Papers</h3>
+              </div><!-- .show-publics-header -->
+              <div class="show-publics-body">
+                <div class="n-publics fade is_over">26</div>
+                <div class="show-public-footer fade is_over"></div>
+              </div><!-- .show-publics-body -->
+            </div><!-- .show-publics -->
+            <div class="show-publics">
+              <div class="show-publics-header">
+                <h3 class="show-public-title fade is_over">Patents</h3>
+              </div><!-- .show-publics-header -->
+              <div class="show-publics-body">
+                <div class="n-publics fade is_over">21</div>
+                <div class="show-public-footer fade is_over"></div>
+              </div><!-- .show-publics-body -->
+            </div><!-- .show-publics -->
+          </div><!-- .show-public-ol -->
+
+          <span class="spacer" data-n="1" style="height: 60px;"></span>
+
+          <a href="http://web.tuat.ac.jp/~sugiura/publications.html" class="links fade is_over">
+            <span class="in">
+              <span class="gr-di bg"></span>
+              <span class="t">See more</span>
+            </span>
+          </a><!-- .links -->
+
+        </div><!-- .body -->
+      </div><!-- .section -->
+    </section>
+
+    <span class="spacer sp-hidden" data-n="3" style="height: 180px;"></span>
+    <span class="spacer sp" data-n="2" style="height: 120px;"></span>
+
+    <section>
+      <div class="section section-awards">
+
+        <div class="table section-add-bg">
+          <div class="cell">
+            <div class="body">
+              <h2 class="sub-title fade is_over"><span>受賞 / 助成</span></h2>
+              <span class="spacer" data-n="1" style="height: 60px;"></span>
+              <p class="fade is_over">これまでに学外団体より授与された表彰実績と、<br>公的機関から助成金を受けた研究プロジェクトの一覧です。</p>
+              <span class="spacer" data-n="1" style="height: 60px;"></span>
+              <a href="http://web.tuat.ac.jp/~sugiura/awards.html" class="links fade links-middle is_over">
+                <span class="in">
+                  <span class="gr-di bg"></span>
+                  <span class="t">See more</span>
+                </span>
+              </a><!-- .links -->
+            </div><!-- .body -->
+          </div>
+        </div>
+
+        <div class="section-bg scroll-obj gr-di" data-float="{&quot;slowmo&quot;:&quot;10&quot;}" style="transform: matrix(1, 0, 0, 1, 0, -204.336);">
+          <div class="in">
+            <div class="cover in is_loaded" data-src="SugiuraLab-files/images/bg_index_awards_1.jpg" style="background-image: url(&quot;images/bg_index_awards_1.jpg&quot;); background-position: center center; background-size: cover;"></div>
+          </div>
+        </div><!-- .section-bg -->
+
+      </div><!-- .section -->
+    </section>
+
+    <span class="spacer" data-n="2" style="height: 120px;"></span>
+
+    <section>
+      <div class="section">
+        <div class="body">
+          <h2 class="sub-title fade is_over"><span>ニュース</span></h2>
+          <span class="spacer" data-n="1" style="height: 60px;"></span>
+          <div class="news-ol">
+            <ul class="news-ul">
+
+            <li class="news-li fade is_over">
+              <div class="news-in">
+                <div class="in">
+                  <div class="date">
+                    <span>2017.4.3</span>
+                  </div>
+                  <div class="category">
+                    <span class="cat-awards">受賞/助成</span>
+                  </div>
+                  <div class="edit">
+                    <h4 class="news-title">日本学術振興会の競争的資金「科学研究費助成事業」に下記の代表申請テーマが採択決定</h4>
+                    <div class="news-body">
+                      <p>基盤研究（Ｂ）：「中継端末にバッファを用いた無線分散ネットワークの高信頼かつ低遅延プロトコル」</p>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- .news-in -->
+            </li><!-- .news-li -->
+
+            <li class="news-li fade is_over">
+              <div class="news-in">
+                <div class="in">
+                  <div class="date">
+                    <span>2017.4.1</span>
+                  </div>
+                  <div class="category">
+                    <span class="cat-common">一般</span>
+                  </div>
+                  <div class="edit">
+                    <h4 class="news-title">研究室ホームページを４年ぶりに全面リニューアル！</h4>
+                  </div>
+                </div>
+              </div><!-- .news-in -->
+            </li><!-- .news-li -->
+
+            <li class="news-li fade is_over">
+              <div class="news-in">
+                <div class="in">
+                  <div class="date">
+                    <span>2017.3.25</span>
+                  </div>
+                  <div class="category">
+                    <span class="cat-awards">受賞/助成</span>
+                  </div>
+                  <div class="edit">
+                    <h4 class="news-title">大岩さん（M1）が公益財団法人電気通信普及財団よりテレコムシステム技術学生賞（佳作）を受賞</h4>
+                  </div>
+                </div>
+              </div><!-- .news-in -->
+            </li><!-- .news-li -->
+
+            <li class="news-li fade is_over">
+              <div class="news-in">
+                <div class="in">
+                  <div class="date">
+                    <span>2017.3.8</span>
+                  </div>
+                  <div class="category">
+                    <span class="cat-common">一般</span>
+                  </div>
+                  <div class="edit">
+                    <h4 class="news-title">第５期生（３名）が正式配属</h4>
+                  </div>
+                </div>
+              </div><!-- .news-in -->
+            </li><!-- .news-li -->
+
+            <li class="news-li fade is_over">
+              <div class="news-in">
+                <div class="in">
+                  <div class="date">
+                    <span>2017.1.27</span>
+                  </div>
+                  <div class="category">
+                    <span class="cat-awards">受賞/助成</span>
+                    <span class="cat-international">国際交流</span>
+                  </div>
+                  <div class="edit">
+                    <h4 class="news-title">日本学術振興会の競争的資金「科学研究費助成事業」に下記の代表申請テーマが採択決定。３年にわたって国際共同研究のための支援を受けます。</h4>
+                    <div class="news-body">
+                      <p>国際共同研究加速基金(国際共同研究強化)：「高速レートかつ低オーバヘッドを実現する非同期大規模アレイ伝送方式の開発」</p>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- .news-in -->
+            </li><!-- .news-li -->
+
+            </ul>
+          </div>
+
+          <span class="spacer" data-n="1" style="height: 60px;"></span>
+
+          <a href="http://web.tuat.ac.jp/~sugiura/news.html" class="links fade is_over">
+            <span class="in">
+              <span class="gr-di bg"></span>
+              <span class="t">See all</span>
+            </span>
+          </a><!-- .links -->
+
+        </div><!-- .body -->
+      </div><!-- .section -->
+    </section>
+
+    <span class="spacer" data-n="2" style="height: 120px;"></span>
+
+    <footer>
+      <div class="footer">
+        <div class="body">
+          <div class="footer-head">
+            <h2 class="logoes-ol">
+              <a href="http://web.tuat.ac.jp/~sugiura/index.html" class="table">
+                <span class="cell">
+                  <span class="logoes-mark"></span>
+                  <span class="logoes-txt">Sugiura Lab</span>
+                </span>
+              </a>
+            </h2>
+            <a href="http://web.tuat.ac.jp/~sugiura/index.html#" class="back-to-top pad"><i class="i i-up"></i></a>
+          </div>
+          <address>CSP Lab - SUGIURA Lab since Jan. 8 2013 / Copyright 2013 S. Sugiura. All Rights Reserved.</address>
+        </div>
+      </div><!-- .footer -->
+    </footer>
+
+  </div><!-- .contents -->
+
+</div></div><!-- #page-wrapper -->
+
+<script src="./SugiuraLab-files/script.js"></script>
+
+
+</body></html>
