@@ -7498,8 +7498,6 @@ $(function() {
     この時点でいろんなthisを生成している。
     そのため、後続のプロパティが必要なthisを読めるようにしている */
     Page.init();
-    /*サブページ用のinitプロパティ*/
-    Subpages.init();
     //Subpages.addToggle(); barda用なのでいらない
     /*スクロールアニメーション用のinit*/
     ScrollAnimation.init();
@@ -7512,27 +7510,7 @@ $(function() {
     $window.on({
       /* ロード時に読み込む */
         load: function() {
-            /*　スプラッシュページのinit */
-            //Splash.init();
             Page.onResize();
-            //Subpages.scrollBar();
-            //Subpages.onResize();
-            if (Page.$canvas.length) {
-              /* ホームとそれ以外とで、canvasのレンダリングを変更している */
-                //homeで読み込み
-                if (Page.currentName === 'home') {
-                    Particles.init(120, true);
-                    render();
-                //404で読み込み
-                } else if (Page.currentName === '404') {
-                    if (is_desktop_width) {
-                        Particles.init(800, false);
-                    } else {
-                        Particles.init(400, false);
-                    }
-                    render404();
-                }
-            }
             Page.onBackground();
             if (is_desktop_width) {
                 ScrollAnimation.onScroll(0);
@@ -7540,19 +7518,9 @@ $(function() {
         },
         resize: function() {
             Page.onResize();
-            Subpages.onResize();
             if (Slider.ready) {
                 Slider.onResize();
             }
-            if (device.mobile() || device.tablet()) {} else if (Particles.ready) {
-                Particles.onResize();
-            }
-        },
-        mousemove: function() {
-            var x = event.pageX;
-            var y = event.pageY;
-            mouse.x = x;
-            mouse.y = y;
         },
         scroll: function() {
             if (is_desktop_width) {
@@ -7571,9 +7539,6 @@ $(function() {
 
                 ScrollAnimation.onScroll(t);
             }
-        },
-        click: function(){
-          alert('お前はすでに死んでいる');
         }
     });
 
@@ -7599,12 +7564,10 @@ var Page = {
         $html = $('html');
 
         /* 初期的に必要な要素は全てthisつまり変数Pageのプロパティに連想配列として格納しておく */
-        this.$canvas = $('#js-background-renderer');
-        this.$spacer = $('.spacer');
         this.$cover = $('.cover');
         this.$bg = $('.addbg');
         this.$wh = $('.wh');
-        this.$fv = $('.first-view');
+        //this.$fv = $('.first-view');
 
         /* pageinfoに現在のページ名入れておいて、今どのページにいるのか知らせている */
         this.currentName = String($('.get-page-info').data('page'));
@@ -7617,9 +7580,11 @@ var Page = {
 
         //もしホームならelse ホームじゃなければifの動作
         if (this.currentName != 'home') {
+          /*
             Slider.ready = false;
             $html.addClass('is_in_subpages');
             $html.removeClass('is_in_home');
+            */
         } else {
             Slider.init();
             $html.addClass('is_in_home');
@@ -7641,7 +7606,7 @@ var Page = {
             var src = $el.data('src');
             if (src) {
                 var img = $(new Image());
-                img.bind('load', function() {
+                img.on('load', function() {
                     $el.addClass('is_loaded');
                     $el.css({
                         'background-image': 'url(' + src + ')',
@@ -7654,15 +7619,6 @@ var Page = {
             }
         });
 
-        this.$bg.each(function(index, el) {
-            var $el = $(el);
-            var src = $el.data('src');
-            if (src) {
-                $el.css({
-                    'background-image': 'url(' + src + ')',
-                });
-            }
-        });
 
     },
 
@@ -7693,504 +7649,17 @@ var Page = {
         } else {
             _this.sh = 60;
         }
-
-        _this.$spacer.each(function(index, el) {
-            var $el = $(el);
-            var n = $el.data('n');
-            $el.css({
-                'height': n * _this.sh,
-            });
-        });
-
+/* fv=first-view
         _this.$fv.css({
             'height': windowHeight
         });
         _this.$wh.css({
             'height': windowHeight
         });
-
+*/
     },
 
 };
-
-
-/*
-███████╗██████╗ ██╗      █████╗ ███████╗██╗  ██╗
-██╔════╝██╔══██╗██║     ██╔══██╗██╔════╝██║  ██║
-███████╗██████╔╝██║     ███████║███████╗███████║
-╚════██║██╔═══╝ ██║     ██╔══██║╚════██║██╔══██║
-███████║██║     ███████╗██║  ██║███████║██║  ██║
-╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
-var Splash = {
-
-    pow: 1,
-
-    init: function() {
-        // $htmlはグローバルで宣言されている変数HTMLが入っている
-        $html.addClass('is_page_loaded');
-
-        //_thisは動かない 不明
-        var _this = this;
-        TweenMax.to(_this, 2, {
-            pow: 0,
-            onUpdate: function() {},
-            ease: Power4.ease
-        });
-
-
-    }
-
-}
-*/
-
-/*
-███████╗██╗   ██╗██████╗ ██████╗  █████╗  ██████╗ ███████╗
-██╔════╝██║   ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝ ██╔════╝
-███████╗██║   ██║██████╔╝██████╔╝███████║██║  ███╗█████╗
-╚════██║██║   ██║██╔══██╗██╔═══╝ ██╔══██║██║   ██║██╔══╝
-███████║╚██████╔╝██████╔╝██║     ██║  ██║╚██████╔╝███████╗
-╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
-*/
-var Subpages = {
-
-    toggleHeight: 800,
-
-    init: function() {
-
-        //initされた場所のthis　つまりプロパティを継承している。
-        var _this = this;
-
-        //_this.$thumb = $('.members-li .thumb');
-        _this.$oe = $('.odd-even');
-        _this.$contents = $('.contents');
-        _this.$backto = $('.back-to-header');
-
-        // Odd
-        _this.$oe.children().each(function(index, el) {
-            var $el = $(el);
-            if (index % 2 === 0) {
-                $el.addClass('even');
-            } else {
-                $el.addClass('odd');
-            }
-        });
-
-        // Fire
-        _this.addSelect();
-        _this.addCategory();
-        _this.onResize();
-
-    },
-
-    addSelect: function() {
-
-        $('.button-select-target').find('.select-target').each(function(index, el) {
-            var $el = $(el);
-            $el.addClass('anchor-to-' + index);
-            var title = $el.find('.get-title').text();
-            var html = '<li><span class="pulldowns anchor-to" data-href=".anchor-to-' + index + '">' + title + '</span></li>';
-            $('.button-select-ul').append(html);
-            var html = '<option value=".anchor-to-' + index + '">' + title + '</option>';
-            $('.button-select-options-body select').append(html);
-        });
-
-    },
-
-    addCategory: function() {
-
-        if ($('.button-category-body').length) {
-
-            var cat = {
-                t: [],
-                c: [],
-            };
-
-            $('.category').children().each(function(index, el) {
-                var $el = $(el);
-                var t = $el.text();
-                var c = $el.attr('class');
-                cat.t.push(t);
-                cat.c.push(c);
-            });
-            cat.t = cat.t.filter(function(v, i, s) {
-                return s.indexOf(v) === i;
-            });
-            cat.c = cat.c.filter(function(v, i, s) {
-                return s.indexOf(v) === i;
-            });
-
-            for (var i = 0; i < cat.t.length; i++) {
-                // Pulldown
-                var html = '<li class="r-' + cat.c[i] + '"><span class="pulldowns" data-href=".' + cat.c[i] + '"><span class="oc o-' + cat.c[i] + '"></span>' + cat.t[i] + '</span></li>';
-                $('.button-select-ul').append(html);
-                // Select
-                var html = '<option class="r-' + cat.c[i] + '" value=".' + cat.c[i] + '">' + cat.t[i] + '</option>';
-                $('.select-category').append(html);
-            };
-
-        }
-
-    },
-
-    addToggle: function() {
-
-        var _this = this;
-        $('.list-table-layout').each(function(index, el) {
-            var $el = $(el);
-            var eh = $el.height();
-            if (eh > _this.toggleHeight) {
-                $el.parents('.list-table-hide').addClass('active');
-                var html = '<div class="list-table-show"> <div class="in"> <a href="" class="button-inside toggle-list-table"> <span class="in"> <span class="t">See all</span> </span> </a> <div class="gr-wh"></div> </div> </div>';
-                $el.after(html);
-            }
-        });
-
-    },
-
-    onResize: function() {
-
-        var _this = this;
-        /*_this.$thumb.each(function(index, el) {
-            var $el = $(el);
-            var w = $el.width();
-            $el.css({
-                'height': w
-            });
-        });*/
-
-        //ヘッダのページの先頭へ戻るが右端へ付いてくるよう指示
-        /*
-        _this.offsetX = windowWidth - _this.$contents.width();
-        if (0 < _this.offsetX) {
-            _this.$backto.css({
-                'right': _this.offsetX / 2
-            });
-        } else {
-            _this.$backto.css({
-                'right': 0
-            });
-        }
-        */
-
-    },
-
-    scrollBar: function() {
-
-        $('.popup-scroll-body').mCustomScrollbar({
-            scrollbarPosition: "outside"
-        });
-
-    }
-
-}
-
-
-/*
- █████╗ ███╗   ██╗██╗███╗   ███╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
-██╔══██╗████╗  ██║██║████╗ ████║██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
-███████║██╔██╗ ██║██║██╔████╔██║███████║   ██║   ██║██║   ██║██╔██╗ ██║
-██╔══██║██║╚██╗██║██║██║╚██╔╝██║██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
-██║  ██║██║ ╚████║██║██║ ╚═╝ ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
-╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-*/
-
-/* HOVER */
-var isSelect = true;
-$(document).on({
-    mouseenter: function() {
-        var $this = $(this).find('.button-select-body');
-        TweenLite.set($this, {
-            y: -30,
-            scale: 0.95,
-            'right': 0
-        });
-        TweenLite.to($this, 0.3, {
-            'opacity': 1,
-            scale: 1,
-            y: 0,
-        });
-    },
-    mouseleave: function() {
-        var $this = $(this).find('.button-select-body');
-        TweenLite.to($this, 0.3, {
-            'opacity': 0,
-            y: 10,
-            onComplete: function() {
-                TweenLite.set($this, {
-                    'right': -9999
-                });
-            }
-        });
-    },
-}, '.button-select-hover');
-
-/* ANCHOR*/
-$(document).on('click', '.anchor-to', function(event) {
-    event.preventDefault();
-    var $target = $($(this).data('href'));
-    var y = $target.offset().top;
-    TweenLite.to(window, 0.5, {
-        scrollTo: {
-            y: y,
-            autoKill: false
-        }
-    });
-});
-
-$(document).on('click', '.scroll', function(event) {
-    event.preventDefault();
-    if (Page.currentName === 'home') {
-        TweenLite.to(window, 0.5, {
-            scrollTo: {
-                y: windowHeight,
-                autoKill: false
-            }
-        });
-    } else {
-        TweenLite.to(window, 0.5, {
-            scrollTo: {
-                y: 600,
-                autoKill: false
-            }
-        });
-    }
-});
-
-/* ページの先頭へ戻る
-$(document).on('click', '.back-to-top', function(event) {
-    event.preventDefault();
-    TweenLite.to(window, 0.5, {
-        scrollTo: {
-            y: 0,
-            autoKill: false
-        }
-    });
-});
-*/
-
-
-/* ANCHOR SELECT　*/
-$(document).on('change', '.button-select-options-body .select', function(event) {
-    event.preventDefault();
-    var speed = 0.4;
-    var ease = Power2.easeOut;
-    var $target = $($(this).val());
-    if ($target.length) {
-        var y = $target.offset().top - 70;
-        TweenLite.to(window, 0.5, {
-            scrollTo: {
-                y: y,
-                autoKill: false
-            }
-        });
-    }
-});
-
-/* TOGGLE 不明
-$(document).on('click', '.toggle-list-table', function(event) {
-    event.preventDefault();
-    var $parent = $(this).parents('.list-table-hide');
-
-    var speed = 0.5;
-    var ease = Power2.easeOut;
-    var mH = $parent.find('.list-table-layout').height() + 100;
-    $parent.toggleClass('is_open');
-    if ($parent.is('.is_open')) {
-        $(this).find('.t').text('Close');
-        TweenLite.to($parent, speed, {
-            'height': mH,
-            ease: ease
-        });
-    } else {
-        $(this).find('.t').text('See all');
-        TweenLite.to($parent, speed, {
-            'height': Subpages.toggleHeight,
-            ease: ease
-        });
-    }
-
-});
-
-/* PROFILE 下層ページのプロフィール表示用ツールチップ
-$(document).on('click', '.open-data', function(event) {
-    event.preventDefault();
-    var $popup = $(this).next('.data');
-    var $body = $popup.find('.data-body');
-    $popup.addClass('is_open');
-    var speed = 0.3;
-    TweenLite.set($body, {
-        'opacity': 0,
-        y: 10,
-    });
-    TweenLite.to($body, speed, {
-        'opacity': 1,
-        y: 0,
-    });
-});
-$(document).on('click', '.close-data', function(event) {
-    event.preventDefault();
-    var $popup = $(this).parents('.data');
-    var $body = $popup.find('.data-body');
-    var speed = 0.3;
-    TweenLite.to($body, speed, {
-        'opacity': 0,
-        y: -10,
-        onComplete: function() {
-            $popup.removeClass('is_open');
-        }
-    });
-});
-
-
-/* POPUP ポップアップ
-$(document).on('click', '.members-gr-links .i-popup', function(event) {
-    event.preventDefault();
-
-    var $popup = $(this).parents('.members-gr-li').find('.popup-window');
-    var $body = $popup.find('.popup-window-body');
-    var $bg = $popup.find('.popup-bg');
-
-    $popup.addClass('is_open');
-    $html.addClass('is_open_popup');
-
-    TweenLite.set($bg, {
-        'opacity': 0,
-        y: 0,
-    });
-    TweenLite.set($body, {
-        'opacity': 0,
-        y: 40,
-    });
-
-    var speed = 0.3;
-    TweenLite.to($bg, speed, {
-        'opacity': 0.8,
-        y: 0,
-    });
-    TweenLite.to($body, speed, {
-        'opacity': 1,
-        delay: 0.1,
-        y: 0,
-    });
-
-});
-$(document).on('click', '.popup-close', function(event) {
-    event.preventDefault();
-
-    var $popup = $(this).parents('.popup-window');
-    var $body = $popup.find('.popup-window-body');
-    var $bg = $popup.find('.popup-bg');
-
-    var speed = 0.3;
-    TweenLite.to($bg, speed, {
-        'opacity': 0,
-        y: -20,
-    });
-    TweenLite.to($body, speed, {
-        'opacity': 0,
-        delay: 0.1,
-        y: -40,
-        onComplete: function() {
-            $popup.removeClass('is_open');
-            $html.removeClass('is_open_popup');
-        }
-    });
-
-});
-*/
-
-/*
-███████╗ ██████╗ ██████╗ ████████╗
-██╔════╝██╔═══██╗██╔══██╗╚══██╔══╝
-███████╗██║   ██║██████╔╝   ██║
-╚════██║██║   ██║██╔══██╗   ██║
-███████║╚██████╔╝██║  ██║   ██║
-╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
-*/
-
-$(document).on('click', '.button-category-body .pulldowns', function(event) {
-    event.preventDefault();
-
-    var speed = 0.4;
-    var ease = Power2.easeOut;
-    var href = $(this).data('href');
-    $('.news-li').addClass('is_over');
-
-    if (href === 'all') {
-        $('.news-li').each(function(index, el) {
-            var $el = $(el);
-            var h = $el.find('.news-in').height();
-            TweenLite.to($el, speed, {
-                'height': h,
-                'opacity': 1,
-                ease: ease
-            });
-        });
-    } else {
-        $('.news-li').each(function(index, el) {
-            var $el = $(el);
-            if (!$el.find(href).length) {
-                TweenLite.to($el, speed, {
-                    'height': 0,
-                    'opacity': 0,
-                    ease: ease
-                });
-            } else {
-                var h = $el.find('.news-in').height();
-                TweenLite.to($el, speed, {
-                    'height': h,
-                    'opacity': 1,
-                    ease: ease
-                });
-            }
-        });
-    }
-
-});
-
-
-$(document).on('change', '.button-select-options-body .select-category', function(event) {
-    event.preventDefault();
-
-    var speed = 0.4;
-    var ease = Power2.easeOut;
-    var href = $(this).val();
-
-    if (href === 'all') {
-        $('.news-li').each(function(index, el) {
-            var $el = $(el);
-            var h = $el.find('.news-in').height();
-            TweenLite.to($el, speed, {
-                'height': h,
-                'opacity': 1,
-                ease: ease
-            });
-        });
-    } else {
-
-        var text = $($(this).val()).first().text();
-        $('.button-category .t').text(text);
-
-        $('.news-li').each(function(index, el) {
-            var $el = $(el);
-            if (!$el.find(href).length) {
-                TweenLite.to($el, speed, {
-                    'height': 0,
-                    'opacity': 0,
-                    ease: ease
-                });
-            } else {
-                var h = $el.find('.news-in').height();
-                TweenLite.to($el, speed, {
-                    'height': h,
-                    'opacity': 1,
-                    ease: ease
-                });
-            }
-        });
-    }
-
-});
 
 /*
 ███████╗ ██████╗██████╗  ██████╗ ██╗     ██╗
@@ -8204,27 +7673,8 @@ $(document).on('change', '.button-select-options-body .select-category', functio
 var ScrollAnimation = {
 
     init: function() {
-
         /* パララックス用オブジェクトを全て格納 */
         this.$scroll = $('.scroll-obj');
-        /* 下層ページで裏側へ引っ込もうとするアニメーション要素 */
-        this.$pan = $('.pan-ol');
-        /* fadeで出てくる要素を全て格納 */
-        this.$fade = $('.fade');
-        /* ヘッダー */
-        this.$header = $('.header');
-        /*
-        $('.fade-child-delay').each(function(i, e) {
-            var $el = $(e);
-            $el.find('.fade').each(function(index, el) {
-                var $this = $(el);
-                $this.css({
-                    'transition-delay': index / 24 + 's'
-                });
-            });
-        });
-        */
-
     },
 
     onScroll: function(t) {
@@ -8232,29 +7682,23 @@ var ScrollAnimation = {
 
         _this.$scroll.each(function(index, el) {
             var $el = $(el);
+            //HTMLに記述したdata-floatの文字列を読み取って、10進数の整数に型変換している
             var slow = parseInt($el.data('float').slowmo, 10);
+            //該当エレメントの一番上をyに格納
             var y = $el.offset().top;
-            var oy = (t - y) / slow;
+            //tはinitで格納されている$window.scrollTop()
+            //つまり現時点のWindowのトップ座標
+            /*console.log('t:'+t);
+            console.log('y:'+y);
+            console.log('t-y:'+ (t-y));*/
+            //HTMLに入れたdataタイプで10分の1だけパララックスするように値を指定している。
+            //t-yはyつまり-から始まって、ちょうどオブジェクトを追い越すときに上からすっと入ってくるパララックスを再現するために実装されている。
+            var oy = (t-y) / slow;
+            //0.5秒かけてyをoyまで移動している
+            //0.5秒で遅らせているのがパララックスっぽくみえる肝
             TweenLite.to($el, 0.5, {
                 y: oy,
             });
-        });
-
-        var rX = t / 10;
-        if (rX < 90 && this.$pan.length) {
-            TweenLite.to(_this.$pan, 0.5, {
-                rotationX: rX,
-                transformPerspective: 2000,
-                transformOrigin: "center bottom",
-            });
-        }
-
-        _this.$fade.each(function(index, el) {
-            var $el = $(el);
-            var y = $el.offset().top;
-            if (y < t + windowHeight) {
-                $el.addClass('is_over');
-            }
         });
 
     }
@@ -8292,15 +7736,27 @@ $(document).on({
 ███████║███████╗██║██████╔╝███████╗██║  ██║
 ╚══════╝╚══════╝╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 */
+/*
+  ■いいところ
+  変なオプションが入っていないので最軽量でいける。
+  レスポンシブ対応されている。
+  パララックスにも対応できる
+  ■悪いところ
+  imgの初期配置はサーバー側で行う必要あり。
+  （つまりループ分のhtmlはhtmlファイルに記述する必要がある。）
+*/
+
 
 var Slider = {
 
+    //Power2はgreenshock専用のイージング
     speed: 0.8,
     ease: Power2.easeInOut,
 
     init: function() {
-
+        //なぜ変数に格納しているか、暗黙値を参照し続けてもらい再宣言を避けるために_thisでつなげてクロージャーにしている。
         var _this = this;
+        //thisはvar Slider自身を指しているので、initしておくと他のプロパティへのアクセスが通るようになっている
         _this.ready = true;
         _this.now = 1;
         _this.max = $('.slides').length - 1;
@@ -8311,16 +7767,23 @@ var Slider = {
     },
 
     onResize: function() {
-
+        //this.readyでinitされているか判定
         if (this.ready) {
+            console.log($('.slides-wrap-ol').width());
+            //スライドショー自体が相対値なので、jqueryで固定値を取得している
             this.width = $('.slides-wrap-ol').width();
+            //1つのスライド固定横幅を手に入れたらスライドのNoを取得して、その分xを代入
             this.x = this.width * this.now;
+            //スライド自体の横幅を確定
             $('.slides').css({
                 'width': this.width
             });
+            //スライドの親ボックスに固定値を代入
             $('.slides-ol').css({
                 'width': this.width * (this.max + 1)
             });
+            console.log(this.$slide);
+            //親ボックスのxをnow分マイナスさせて初期値を設定させる
             TweenLite.set(this.$slide, {
                 x: -this.x,
             });
@@ -8328,13 +7791,19 @@ var Slider = {
 
     },
 
+    //ボタン押した時のアニメーション挙動
     onSlideTo: function(isFirst, isLast) {
-
+        //thisつまりSliderを
+        //なぜ変数に格納しているか
+        //暗黙値を参照し続けてもらい再宣言を避けるために_thisでつなげてクロージャーにしている。
+        //つまりこのプロパティにおける_thisが削除されない限り参照され続ける。
         var _this = this;
         if (_this.ready) {
 
+            //処理が終わるまでfalseにして、動作がかぶらないようにしている
             _this.ready = false;
 
+            //nowの値の変更で、いまどこにいて、稼働幅がどれくらいかを決めている。
             _this.x = _this.width * _this.now;
             if (isFirst) {
                 TweenLite.set(_this.$slide, {
@@ -8420,568 +7889,3 @@ function getBrows() {
     }
     return false;
 }
-
-/*
-██████╗ ███████╗███╗   ██╗██████╗ ███████╗██████╗ ███████╗██████╗
-██╔══██╗██╔════╝████╗  ██║██╔══██╗██╔════╝██╔══██╗██╔════╝██╔══██╗
-██████╔╝█████╗  ██╔██╗ ██║██║  ██║█████╗  ██████╔╝█████╗  ██████╔╝
-██╔══██╗██╔══╝  ██║╚██╗██║██║  ██║██╔══╝  ██╔══██╗██╔══╝  ██╔══██╗
-██║  ██║███████╗██║ ╚████║██████╔╝███████╗██║  ██║███████╗██║  ██║
-╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
-██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗     ███████╗███████╗
-██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║     ██╔════╝██╔════╝
-██████╔╝███████║██████╔╝   ██║   ██║██║     ██║     █████╗  ███████╗
-██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║     ██╔══╝  ╚════██║
-██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗███████╗███████╗███████║
-╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚══════╝╚══════╝╚══════╝
-*/
-
-function getMaxmin(max, min) {
-    return Math.random() * (max - min) + min;
-}
-
-
-var Particles = {
-
-    ready: false,
-    points: [],
-    colors: [
-        'rgba(161,147,202,1)',
-        'rgba(59,72,164,1)',
-        'rgba(59,158,164,1)',
-    ],
-
-    /* init = 生成 */
-    init: function(n, f) {
-
-        this.x = 0,
-            this.y = 100,
-            this.range = 40,
-            this.speed = 100,
-            this.maxSize = 1.3,
-            this.minSize = 0.3,
-            this.maxSpeed = 0.6,
-            this.minSpeed = 0.2,
-            this.offset = 100,
-            this.node = 70,
-            this.node404 = 50,
-            /* ratio は 比率 */
-            this.ratio = 1;
-        this.canvas = Page.$canvas[0];
-        this.ctx = this.canvas.getContext('2d');
-        this.ratio = window.devicePixelRatio;
-        /* 比率をかけて値をざっくりコントロールできる */
-        this.fixRatio();
-        this.onResize();
-        this.points = [];
-
-        for (var i = 0; i < n; i++) {
-
-            if (f) {
-                var x = this.canvas.width * Math.random();
-                var y = this.canvas.height / 2 + this.y * Math.random() - this.y / 2;
-                var x_speed = 1.2 * this.ratio;
-                var y_speed = 1 * this.ratio;
-            } else {
-                var x = Math.random() * this.canvas.width + 1;
-                var y = Math.random() * this.canvas.height + 1;
-                var x_speed = getMaxmin(this.maxSpeed, this.minSpeed);
-                var y_speed = getMaxmin(this.maxSpeed, this.minSpeed);
-            }
-
-            /* 冒頭で定義しているcolrsの値をランダムで入れている */
-            var c = this.colors[parseInt(Math.random() * this.colors.length, 10)];
-
-            /* this.pointsというから配列にpointsの情報をpush */
-            this.points.push({
-                x: x,
-                y: y,
-                ox: x,
-                oy: y,
-                vx: x_speed,
-                vy: y_speed,
-                vox: x_speed,
-                voy: y_speed,
-                col: c,
-                deg: Math.random() * 360,
-                radius: Math.random() * getMaxmin(this.maxSize, this.minSize),
-            });
-        };
-
-        this.ready = true;
-
-    },
-
-    fixRatio: function() {
-
-        this.y = this.ratio * this.y,
-            this.range = this.ratio * this.range,
-            this.speed = this.ratio * this.speed,
-            this.maxSize = this.ratio * this.maxSize,
-            this.minSize = this.ratio * this.minSize,
-            this.maxSpeed = this.ratio * this.maxSpeed,
-            this.minSpeed = this.ratio * this.minSpeed,
-            this.offset = this.ratio * this.offset,
-            this.node = this.ratio * this.node,
-            this.node404 = this.ratio * this.node404;
-
-    },
-
-    onResize: function() {
-
-        if (is_mobile_width) {
-
-            var w = windowWidth * this.ratio;
-            if (Page.currentName === '404') {
-                var h = windowHeight;
-            } else {
-                var h = 500;
-            }
-            this.canvas.width = w * this.ratio * 2;
-            this.canvas.height = h * this.ratio;
-            Page.$canvas.css({
-                'width': w * 2,
-                'height': h,
-                'left': '50%',
-                'margin-left': -w
-            });
-
-        } else if (is_pad_width) {
-
-            var w = windowWidth * this.ratio;
-            var h = windowHeight;
-            this.canvas.width = w * this.ratio * 2;
-            this.canvas.height = h * this.ratio;
-            Page.$canvas.css({
-                'width': w * 2,
-                'height': h,
-                'left': '50%',
-                'margin-left': -w
-            });
-
-        } else {
-
-            var w = windowWidth;
-            var h = windowHeight;
-            this.canvas.width = w * this.ratio;
-            this.canvas.height = h * this.ratio;
-            Page.$canvas.css({
-                'width': w,
-                'height': h,
-                'left': '50%',
-                'margin-left': -w / 2
-            });
-
-        }
-
-
-    },
-    onUpdate: function() {
-
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        for (var i = 0; i < this.points.length; ++i) {
-
-            var p = this.points[i];
-
-            if (p.deg < 360) {
-                p.deg += 1;
-            } else {
-                p.deg = 0;
-            }
-
-            var wave = Math.sin(p.deg * (Math.PI / 180));
-            p.ox = p.ox + p.vx;
-            p.oy = p.oy + p.vy * wave;
-
-            dx = mouse.x * this.ratio - p.x;
-            dy = mouse.y * this.ratio - p.y;
-
-            var distance = Math.sqrt(dx * dx + dy * dy);
-
-            p.x = (p.x - (dx / distance) * (this.range / distance) * this.speed) - ((p.x - p.ox) / 2);
-            p.y = (p.y - (dy / distance) * (this.range / distance) * this.speed) - ((p.y - p.oy) / 2);
-
-            // ドット
-            this.ctx.fillStyle = p.col;
-            this.ctx.beginPath();
-            this.ctx.arc(p.x, p.y, 1 * this.ratio, 0, Math.PI * 2, true);
-            this.ctx.closePath();
-            this.ctx.fill();
-
-            if (p.x > this.canvas.width) {
-                p.ox = p.x = 0;
-                p.oy = p.y = this.canvas.height / 2 + this.y * Math.random() - this.y / 2;
-            }
-            if (p.y < 0) {
-                p.ox = p.x = this.canvas.width * Math.random();
-                p.oy = p.y = this.canvas.height / 2 + this.y * Math.random() - this.y / 2;
-            }
-
-            for (var n = 0; n < this.points.length; n++) {
-
-                var pn = this.points[n];
-                var nx = p.x - this.points[n].x;
-                var ny = p.y - this.points[n].y;
-
-                var l = Math.sqrt(Math.pow(nx, 2) + Math.pow(ny, 2));
-
-                if (l < this.node) {
-                    this.ctx.beginPath();
-                    this.ctx.lineWidth = 0.08 * this.ratio;
-                    this.ctx.strokeStyle = p.col;
-                    this.ctx.moveTo(p.x, p.y);
-                    this.ctx.lineTo(pn.x, pn.y);
-                    this.ctx.closePath();
-                    this.ctx.stroke();
-                }
-
-            };
-
-        }
-
-    },
-    onUpdate404: function() {
-
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        for (var i = 1; i < this.points.length; i++) {
-
-            var p = this.points[i];
-            if (p.x > this.canvas.width) {
-                p.x = 0;
-                p.y = Math.random() * this.canvas.height + this.offset / 2;
-                p.ox = p.x;
-                p.oy = p.y;
-                p.vx = p.vox;
-                p.vy = p.voy;
-            }
-
-            if (p.y < -this.offset) {
-                p.x = Math.random() * this.canvas.width + this.offset / 2;
-                p.y = this.canvas.height;
-                p.ox = p.x;
-                p.oy = p.y;
-                p.vx = p.vox;
-                p.vy = p.voy;
-            }
-
-            if (p.x < -this.offset) {
-                p.x = this.canvas.width;
-                p.y = Math.random() * this.canvas.height + this.offset / 2;
-                p.ox = p.x;
-                p.oy = p.y;
-                p.vx = p.vox;
-                p.vy = p.voy;
-            }
-
-            if (p.y > this.canvas.height + this.offset) {
-                p.x = Math.random() * this.canvas.width + this.offset / 2;
-                p.y = 0;
-                p.ox = p.x;
-                p.oy = p.y;
-                p.vx = p.vox;
-                p.vy = p.voy;
-            }
-
-            var color = p.col;
-            var radius = p.radius;
-
-            this.ctx.beginPath();
-            this.ctx.fillStyle = color;
-
-            if (isHovered) {
-                var dx = mouse.x * this.ratio - p.x;
-                var dy = mouse.y * this.ratio - p.y;
-            } else {
-                var dx = this.canvas.width / 2 - p.x;
-                var dy = this.canvas.height / 2 - p.y;
-            }
-
-            var distance = Math.sqrt(dx * dx + dy * dy);
-
-            var min = hover.dist * 220 * this.ratio;
-            var dist = 30 * hover.pow * this.ratio;
-            var max = hover.dist * (250 + dist) * this.ratio;
-
-            if (min < distance && distance < max) {
-
-                p.vx = p.vx + p.vox / 2;
-                p.vy = p.vy - p.voy / 2;
-
-                p.x = p.x - (dx / distance) - ((p.x - p.ox) / 2) + p.vx;
-                p.y = p.y - (dy / distance) - ((p.y - p.oy) / 2) + p.vy;
-                this.ctx.arc(p.x, p.y, radius * this.ratio, 0, Math.PI * 2, false);
-                this.ctx.fill();
-
-                for (var n = 1; n < this.points.length; n++) {
-                    var pn = this.points[n];
-                    var nx = p.x - this.points[n].x;
-                    var ny = p.y - this.points[n].y;
-                    var strokeL = Math.sqrt(Math.pow(nx, 2) + Math.pow(ny, 2));
-                    if (strokeL < this.node404) {
-                        this.ctx.beginPath();
-                        this.ctx.lineWidth = 0.2 * this.ratio;
-                        this.ctx.strokeStyle = color;
-                        this.ctx.lineTo(p.x, p.y);
-                        this.ctx.lineTo(pn.x, pn.y);
-                        this.ctx.closePath();
-                        this.ctx.stroke();
-                        this.ctx.fill();
-                    }
-                };
-
-            } else {
-
-                p.vx = p.vx + p.vox;
-                p.vy = p.vy - p.voy;
-                p.x = p.x - (dx / distance) - ((p.x - p.ox) / 2) + p.vx;
-                p.y = p.y - (dy / distance) - ((p.y - p.oy) / 2) + p.vy;
-                this.ctx.arc(p.x, p.y, radius, 0, Math.PI * 2, false);
-                this.ctx.fill();
-
-            }
-
-        };
-    }
-
-}
-
-/*
-███████╗ ██████╗ ██████╗ ██████╗ ██╗   ██╗
-██╔════╝██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝
-███████╗██║   ██║██████╔╝██████╔╝ ╚████╔╝
-╚════██║██║   ██║██╔══██╗██╔══██╗  ╚██╔╝
-███████║╚██████╔╝██║  ██║██║  ██║   ██║
-╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝
-*/
-/*
-var isHovered = false;
-var hover = {
-    ease: Power3.easeOut,
-    speed: 0.5,
-    pow: 1,
-    dist: 1,
-}
-
-$(document).on({
-
-    mouseenter: function() {
-        isHovered = true;
-        TweenMax.to(hover, hover.speed, {
-            pow: 0.3,
-            dist: 0.5,
-            ease: hover.ease
-        });
-    },
-    mouseleave: function() {
-        isHovered = false;
-        TweenMax.to(hover, hover.speed, {
-            pow: 1,
-            dist: 1,
-            ease: hover.ease
-        });
-    }
-
-}, '.hover');
-*/
-/*
-██████╗ ███████╗███╗   ██╗██████╗ ███████╗██████╗
-██╔══██╗██╔════╝████╗  ██║██╔══██╗██╔════╝██╔══██╗
-██████╔╝█████╗  ██╔██╗ ██║██║  ██║█████╗  ██████╔╝
-██╔══██╗██╔══╝  ██║╚██╗██║██║  ██║██╔══╝  ██╔══██╗
-██║  ██║███████╗██║ ╚████║██████╔╝███████╗██║  ██║
-╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
-*/
-var animateRenderFrame;
-
-/* パーティクルのレンダリング */
-function render() {
-    animateRenderFrame = window.requestAnimationFrame(render);
-    if (is_firstview) {
-        Particles.onUpdate();
-    }
-}
-
-function render404() {
-    animateRenderFrame = window.requestAnimationFrame(render404);
-    if (is_firstview) {
-        Particles.onUpdate404();
-    }
-}
-
-/*
-██████╗ ███████╗███╗   ██╗██████╗ ███████╗██████╗ ███████╗██████╗
-██╔══██╗██╔════╝████╗  ██║██╔══██╗██╔════╝██╔══██╗██╔════╝██╔══██╗
-██████╔╝█████╗  ██╔██╗ ██║██║  ██║█████╗  ██████╔╝█████╗  ██████╔╝
-██╔══██╗██╔══╝  ██║╚██╗██║██║  ██║██╔══╝  ██╔══██╗██╔══╝  ██╔══██╗
-██║  ██║███████╗██║ ╚████║██████╔╝███████╗██║  ██║███████╗██║  ██║
-╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
-     ██╗██╗   ██╗███╗   ███╗██████╗
-     ██║██║   ██║████╗ ████║██╔══██╗
-     ██║██║   ██║██╔████╔██║██████╔╝
-██   ██║██║   ██║██║╚██╔╝██║██╔═══╝
-╚█████╔╝╚██████╔╝██║ ╚═╝ ██║██║
- ╚════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝
-*/
-
-/* ページ遷移時のレンダリング用なので不要
-var BaseTransition;
-var BaseSplash;
-
-function hasClass(element, className) {
-    return (' ' + element.className + ' ').replace(/[\n\t]/g, ' ').indexOf(' ' + className + ' ') !== -1;
-}
-
-Barba.Pjax.Dom.wrapperId = 'page-wrapper';
-Barba.Pjax.Dom.containerClass = 'load-body';
-
-var ClickedGlobalNavigation = true;
-
-$(function() {
-
-    var lastElementClicked;
-    //Bardaと呼ばれるpjaxを使った高速化ライブラリ
-    // ただし、デメリットとしてanalyticsとの相性が非常に悪いため、要検討
-    Barba.Pjax.init();
-    Barba.Prefetch.init();
-
-    Barba.Dispatcher.on('linkClicked', function(el) {
-        lastElementClicked = el;
-        if (hasClass(el, 'change-lang')) {
-            window.location.href = $(el).attr('href');
-            return false;
-        }
-        if ($('.is_404').length) {
-            window.location.href = $(el).attr('href');
-            return false;
-        }
-        if ($(el).parents().is('.global-navi')) {
-            ClickedGlobalNavigation = true;
-        } else {
-            ClickedGlobalNavigation = false;
-        }
-    });
-
-    // Google Analytics
-    Barba.Dispatcher.on('initStateChange', function(currentStatus) {
-        if (ga) {
-            ga('send', 'pageview', location.pathname);
-        }
-    });
-
-    var ExpandTransition = Barba.BaseTransition.extend({
-
-        start: function() {
-            Promise
-                .all([this.newContainerLoading, this.fadeOut()])
-                .then(this.fadeIn.bind(this));
-        },
-
-        fadeOut: function() {
-
-            // リセット
-            Particles.points = [];
-            $html.removeClass('is_scrolled is_page_loaded is_menu_opened').addClass('is_page_jumped');
-            if (animateRenderFrame) {
-                window.cancelAnimationFrame(animateRenderFrame);
-            }
-
-            //
-            if (!ClickedGlobalNavigation) {
-                $html.addClass('is_not_clicked_gnav');
-            }
-
-            // 次へ
-            var deferred = Barba.Utils.deferred();
-            var $old = $(this.oldContainer);
-            TweenLite.to($old, 0.4, {
-                opacity: 0,
-                onComplete: function() {
-                  // TweenMaxのlite版
-                    TweenLite.set(window, {
-                        scrollTo: {
-                            y: 0,
-                            autoKill: false
-                        }
-                    });
-                    // promiseに値を返している
-                    deferred.resolve();
-                }
-            });
-            return deferred.promise;
-
-        },
-
-        fadeIn: function() {
-
-            var _this = this;
-            var $old = $(this.oldContainer);
-            var $now = $(this.newContainer);
-
-            // 言語間を超えた HistoryBack 対策
-            Page.oldlang = $old.data('lang');
-            Page.nowlang = $now.data('lang');
-            if (Page.oldlang != Page.nowlang) {
-                location.reload();
-                return false;
-            }
-
-            $now.css({
-                visibility: 'visible',
-                opacity: 0
-            });
-            TweenLite.to($now, 0.4, {
-                opacity: 1
-            });
-            $old.hide();
-            _this.done();
-
-            //
-            if (!ClickedGlobalNavigation) {
-                $html.removeClass('is_not_clicked_gnav');
-            }
-
-        }
-
-
-    });
-
-    Barba.Pjax.getTransition = function() {
-        var transitionObj = ExpandTransition;
-        return transitionObj;
-    };
-
-    Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {
-        Page.oldname = oldStatus.namespace;
-        Page.name = currentStatus.namespace;
-    });
-
-    Barba.Dispatcher.on('transitionCompleted', function() {
-
-        Page.init();
-        Subpages.init();
-        Subpages.addToggle();
-        ScrollAnimation.init();
-        $html.addClass('is_page_loaded');
-        Page.onResize();
-        Subpages.scrollBar();
-        if (Page.$canvas.length) {
-            if (Page.currentName === 'home') {
-                Particles.init(120, true);
-                render();
-            } else if (Page.currentName === '404') {
-                Particles.init(800, false);
-                render404();
-            }
-        }
-        Page.onBackground();
-        if (is_desktop_width) {
-            ScrollAnimation.onScroll(0);
-        }
-
-        is_Transitioning = false;
-
-    });
-
-});*/
