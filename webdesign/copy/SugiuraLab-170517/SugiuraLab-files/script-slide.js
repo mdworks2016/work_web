@@ -7622,28 +7622,34 @@ var Page = {
 
     },
 
+    //ここだけでは何も機能しないが、$(window)に仕込んでおくことで、常にload判定してくれる
     onResize: function() {
 
         var _this = this;
+        //判定用の横幅取得
         windowWidth = $window.width();
         windowHeight = $window.height();
         windowWidthHalf = windowWidth / 2;
         windowHeightHalf = windowHeight / 2;
 
+        //680未満はmobileがtrueになることで判定
         if (windowWidth < 680) {
             is_mobile_width = true;
             is_pad_width = false;
             is_desktop_width = false;
+        //680以上　1024未満はpadがtrueになることで判定
         } else if (windowWidth < 1024) {
             is_pad_width = true;
             is_mobile_width = false;
             is_desktop_width = false;
+        //1024以上はdesktopがtrueになることで判定
         } else {
             is_desktop_width = true;
             is_pad_width = false;
             is_mobile_width = false;
         }
-
+        //他のスクリプト消しちゃったので不明
+        //それぞれshに固有値を代入している
         if (is_mobile_width) {
             _this.sh = 20;
         } else {
