@@ -176,6 +176,35 @@ hoge.call(obj2); //結果：obj2 data
 
 })();
 
+//失敗例2
+(function(){
+  'use strict'
+  var A = {
+    init : function(){
+      this.ohha = 'おっはー';
+    }
+  }
+  //一度Aをinitしておくと自動的にプロパティが使えるようになる。
+  A.init();
+  //ただしこの方法だとプロパティにアクセスすれば直接書き込めてしまうため、プライベート化はできていない。
+  A.ohha = 'こんばんは';
+  console.log(A.ohha);//こんばんはと出力される
+
+  var B = {
+    init: function(){
+      var _this = this;
+      var konchiwa = 'こんちは';
+      return konchiwa;
+    }
+  }
+  $('html').on('click',function(){
+    console.log(B.init());
+    konchiwa = '残念でした';
+  });
+
+})();
+
+
 //成功例
 (function(){
   'use strict'
