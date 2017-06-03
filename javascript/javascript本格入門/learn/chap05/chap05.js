@@ -265,3 +265,223 @@ hoge.call(obj2); //結果：obj2 data
   console.log(word.comment + '三角形の面積：' + t.getArea());
 
 })();
+
+//5.4.2 Object.definePropetyメソッドによるアクセサーメソッドの実装
+//上記のfunction内のfunctionにおけるアクセサーメソッドの実装は、古いブラウザのために残された機能なので
+//実際のところコードがスパゲティになるだけでつかづらい
+//そのため、ES5から標準でゲッター、セッターメソッドを実装できる方法がある。
+
+(function(){
+  'use strict'
+  function Triangle(){
+    var _base;
+    var _height;
+
+    Object.defineProperty(
+      this,
+      'base',
+      {
+        get : function(){
+          return _base;
+        },
+        set : function(base){
+          //入ってきた値の型を確かめてエラーがないか確認している。
+          //（厳密に言うとエラーがでないので、自分で作る必要があるが）
+          if(typeof base === 'number' && base > 0){
+            //引数からプライベートメンバーへアクセスさせている
+            _base = base;
+          }
+        }
+      }
+    );
+
+    Object.defineProperty(
+      this,
+      'height',
+      {
+        get: function () {
+          return _height;
+        },
+        set: function(height){
+          if(typeof height === 'number' && height > 0){
+            _height = height;
+          }
+        }
+      }
+    );
+  };
+
+  Triangle.prototype.getArea = function(){
+    return this.base * this.height / 2;
+  };
+
+  //これがプロトタイプの問題点、必ずtをコンストラクターで実装しないといけない。
+  //動作は暗黙知にならないためtが多数存在する場合にはこの方法は使えない。
+  //（同じページで多数する動作や、バックグラウンドで値とってくる動作など）
+  var t = new Triangle();
+
+  t.base = 10;
+  t.height = 2;
+  console.log('リスト5-26の改造版：三角形の底辺' + t.base);   //結果10
+  console.log('リスト5-26の改造版：三角形の高さ' + t.height); //結果2
+
+})();
+
+
+//5.4.2-2 Object.definePropetiesメソッドによる、ハッシュでのアクセサーメソッドの実装
+//正直これを覚えていれば単体での実装入らなくね？
+
+(function(){
+  'use strict'
+  function Triangle(){
+    var _base;
+    var _height;
+
+    //ここから変更
+    Object.defineProperties(this, {
+      base : {
+        get:function(){
+          return _base;
+        },
+        set: function(base){
+          if(typeof base === 'number' && base > 0){
+            _base = base;
+          }
+        }
+      },
+      height : {
+        get : function(){
+          return _height;
+        },
+        set : function(height){
+          if(typeof height === 'number' && height > 0){
+            _height = height;
+          }
+        }
+      }
+    });
+  };
+
+  Triangle.prototype.getArea = function(){
+    return this.base * this.height / 2;
+  };
+
+  var t = new Triangle();
+
+  t.base = 10;
+  t.height = 2;
+  console.log('リスト5-26のアクセさーメソッド複数版：三角形の底辺' + t.base);   //結果10
+  console.log('リスト5-26のアクセさーメソッド複数版：三角形の高さ' + t.height); //結果2
+
+})();
+
+
+//5.5 ES2015（ES6）のオブジェクト指向
+//5.5.1 クラスを定義する-class命令-
+(function(){
+  'use strict'
+  class Member{
+    //コンストラクタ
+    constructor(firstName,lastName){
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+    //メソッド
+    getName(){
+      return this.lastName + this.firstName;
+    }
+  }
+  let m = new Member('太郎','山田');
+  console.log(m.getName());//結果：山田太郎
+})();
+
+//■プロパティを定義する
+(function(){
+  'use strict'
+  class Member {
+    //コンストラクター
+    constructor(firstName,lastName){
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+
+    //firstNameプロパティ
+    get firstName(){
+      return this._firstName;
+    }
+
+    set firstName(value){
+      this._firstName = value;
+    }
+
+    //lastNameプロパティ
+    get lastName(){
+      return this._lastName;
+    }
+
+    set lastName(value){
+      this._lastName = value;
+    }
+
+    getName(){
+      return this.lastName + this.firstName;
+    }
+  }
+
+  let m = new Member('太郎','山田');
+  console.log('5.5：プロパティを定義する/'+m.getName());//結果：山田太郎
+
+})();
+
+//■静的メソッドを定義する
+(function(){
+  'use strict'
+  //スタティックにすることでインスタンスの生成をすっ飛ばしてclassからアクセスすることができる
+  class Area {
+    static getTriangle(base,height){
+      return base * height / 2;
+    }
+  }
+  console.log(Area.getTriangle(10,5));
+
+  //スタティックにしないとインスタンス生成からしかアクセスできない
+  class Area2 {
+    constructor(base,height){
+      this._base = base;
+      this._height = height;
+    }
+    getTriangle(){
+      return this._base * this._height / 2;
+    }
+  }
+  //実行できないconsole.log(Area2.getTriangle(10,5));
+
+})();
+
+//■既存のクラスを継承する
+(function(){
+  'use strict'
+  class Member{
+    //コンストラクタ
+    constructor(firstName,lastName){
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+    //メソッド
+    getName(){
+      return this.lastName + this.firstName;
+    }
+  }
+
+  class BusinessMember extends Member {
+  //メソッドの追加にfunction使わなくても良くなったのか...
+    work(){
+      return this.getName() + 'は働いていいます。';
+    }
+  }
+
+  let bm = new BusinessMember('太郎','山田');
+  //ここでgetNameが継承されていることがわかる。
+  console.log('5.5：既存のクラスを継承する/'+bm.getName());//結果：山田太郎
+  console.log('5.5：既存のクラスを継承する/'+bm.work());//山田太郎は働いています
+})();
