@@ -485,3 +485,136 @@ hoge.call(obj2); //結果：obj2 data
   console.log('5.5：既存のクラスを継承する/'+bm.getName());//結果：山田太郎
   console.log('5.5：既存のクラスを継承する/'+bm.work());//山田太郎は働いています
 })();
+
+
+//■基底クラスを継承する
+(function(){
+  'use strict'
+  class Member{
+    //コンストラクタ
+    constructor(firstName,lastName){
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+    //メソッド
+    getName(){
+      return this.lastName + this.firstName;
+    }
+  }
+
+  class BusinessMember extends Member {
+    //引数にclazz(役職)を追加
+    constructor(firstName,lastName,clazz){
+      //ここでfirsNameの処理とlastNameの処理を読み込んでいる
+      super(firstName,lastName);
+      //このthisはビジネスメンバーを指しているので派生クラス用のプロパティ
+      this.clazz = clazz;
+    }
+
+    //役職込みの名前を返すように修正
+    //ただのエクステンドではgetNameへの上書きは不能だったが、superクラスを使うと
+    //もとのMemberに指定されているメソッドの派生メソッドを生成することができる。
+    //（名前空間を汚さない）
+    getName(){
+      return super.getName() + '／役職：' + this.clazz;
+    }
+  }
+
+  let bm = new BusinessMember('太郎','山田','課長');
+  //ここでgetNameが継承されていることがわかる。
+  console.log('5.5：基底クラスのメソッドコンストラクターを呼び出す/'+bm.getName());//結果：山田太郎／役職：課長
+})();
+
+//5.5 ES2015（ES6）のオブジェクト指向 2回目
+//5.5.1 クラスを定義する-class命令-
+(function(){
+  'use strict'
+class Member {
+  //クラスとコンストラクタは必ずセットで運用される
+  cunstructor(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  // メソッド
+  getName(){
+    return this.lastName + this.firstName;
+  }
+}
+
+//new演算子でオブジェクトのインスタンスを生成する
+let m = new Member('太郎','山田');
+console.log(m.getName());
+
+})();
+
+//5.5.1 クラスを定義する-プロパティを定義する-
+(function(){
+  'use strict'
+  class Member {
+    constructor(firstName,lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+
+    // firstNameプロパティのgetメソッド
+    get firstName(){
+      return this._firstName;
+    }
+
+    // firstNameプロパティのsetメソッド
+    set firstName(value){
+      return this._firstName = value;
+    }
+
+    // firstNameプロパティのgetメソッド
+    get lastName(){
+      return this._lastName + 'lastNameを出力するのにgetメソッドを使用しました';
+    }
+
+    // firstNameプロパティのsetメソッド
+    set lastName(value){
+      return this._lastName = value;
+    }
+
+    getName(){
+      return this.lastName + this.firstName;
+    }
+
+  }
+
+  let m = new Member('太郎','山田');
+  console.log(m.firstName);
+  m.firstName = '二郎';
+  console.log(m.getName()); //結果：山田太郎
+
+})();
+
+//5.5.1 クラスを定義する-基底クラスのメソッド・コンストラクターを呼び出す superキーワード-
+(function(){
+
+  class Member {
+    constructor(firstName, lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+
+    getName (){
+      return this.lastName + this.firstName;
+    }
+  }
+
+  class BusinnesMember extends Member {
+    constructor(firstName,lastName,clazz) {
+      super(firstName,lastName);
+      this.clazz = clazz;
+    }
+
+    getName(){
+      return super.getName() + '/役職：' + this.clazz;
+    }
+  }
+
+  let bm = new BusinnesMember('太郎','山田','課長');
+  console.log(bm.getName());
+
+})();
