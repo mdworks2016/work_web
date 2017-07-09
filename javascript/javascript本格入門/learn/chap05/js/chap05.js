@@ -714,10 +714,7 @@ console.log(m.getName());
 
 
 //5.5.2 オブジェクトリテラルの改善2回目
-  import {Monban,Area} from 'lib/util'
-
-  var mooo = new Monban('太郎','山田');
-  console.log(mooo.getName());
+// -babelのファイルで実現
 
 
 //import 命令の様々な記法
@@ -741,3 +738,191 @@ console.log(m.getName());
 
 })();
 */
+
+
+//5.5.4 列挙可能なオブジェクトを定義する -イテレータ-
+(function(){
+  'use strict'
+  let data_ary = ['one','two','three'];//Array型
+  let data_str = 'あいうえお';//String型
+  let data_map = new Map([['MON','月曜'],['TUE','火曜'],['WEN','水曜']]);//Map型
+
+  for(let d of data_ary){
+    console.log(d);
+  }
+  for(let d of data_str){
+    console.log(d);
+    //選定するんじゃなくて列挙するだけ
+  }
+
+  for (let [key,value] of data_map){
+    console.log(`${key}:${value}`);
+  }
+})();
+
+(function(){
+  'use strict'
+  let data_ary = ['one','two','three'];
+  let itr = data_ary[Symbol.iterator]();
+  let d;
+  while (d = itr.next()){
+    if(d.done){
+      console.log(d.done);
+      break;
+    }
+    console.log(d.done);
+    console.log(d.value);
+  }
+})();
+
+//自作クラスでイテレータを回す
+(function(){
+  'use strict'
+  class MyIterator{
+    constructor(data){
+      this.data = data;
+    }
+
+    [Symbol.iterator](){
+      let current = 0;
+      let that = this;
+      return {
+        next(){
+          return current < that.data.length ?
+            {value: that.data[current++],done: false}:
+            {done: true};
+        }
+      };
+    }
+  }
+  let itr = new MyIterator(['one','two','three']);
+  for(let value of itr){
+    console.log('イテレータ実験1回目：'+value);
+  }
+})();
+
+(function(){
+  'use strict'
+  let data_ary = ['one','two','three'];
+  let data_str = 'あいうえお';
+  let data_map = new Map([['MON','月曜日'],['TUE','火曜'],['WED','水曜日']]);
+
+  for(let d of data_ary){
+    console.log('デフォルトイテレータ'+d);
+  }
+
+  for (let d of data_str) {
+    console.log('デフォルトイテレータ'+d);
+  }
+
+  for(let [key,value] of data_map){
+    console.log('デフォルトイテレータ'+`${key}:${value}`);
+  }
+
+})();
+
+//原始的なイテレーターの記述方法
+(function(){
+  'use strict'
+  let data_ary = ['one','two','three'];
+  let itr = data_ary[Symbol.iterator]();
+  let itr2 = Symbol.iterator;
+  let d;
+
+  console.log(itr2);
+  while(d = itr.next()){
+    if (d.done){
+      break;
+    }
+    console.log(d.done);
+    console.log(d.value);
+  }
+
+})();
+
+//自作クラスでイテレータを回す 2回目
+(function(){
+  'use strict'
+  class MyIterator {
+    constructor(data) {
+      this.data = data;
+    }
+
+    [Symbol.iterator](){
+      let current = 0;
+      let that = this;
+      return {
+        next(){
+          return current < that.data.length ?
+          {value: that.data[current++],done:false}:
+          {done: true};
+        }
+      }
+    };
+  }
+
+  let itr = new MyIterator(['one','two','three']);
+  for (let d of itr){
+    console.log('イテレータ実験2回目：'+d);
+  }
+})();
+
+//5.5.5 列挙可能なオブジェクトをより簡単に実装する-ジェネレーター-
+(function(){
+  'use strict'
+  function* myGenerator(){
+    yield 'あいうえお';
+    yield 'かきくけこ';
+    yield 'さしすせそ';
+  }
+  for(let t of myGenerator()){
+    console.log(t);
+  }
+})();
+//http://qiita.com/kura07/items/d1a57ea64ef5c3de8528
+(function(){
+  'use strict'
+  function* gfn(n){
+    n++;
+    yield n;
+    n*=2;
+    yield n;
+    n=0;
+    yield n;
+  }
+  var g = gfn(10); //ジェネレーターを精製した
+  console.log(g.next().value);
+})();
+//ジェネレーターの簡単な例2回目
+(function(){
+  'use strict'
+  function* myGenerator(){
+    yield 'ジェネレーターの簡単な例2回目'
+    yield 'あいうえお';
+    yield 'かきくけこ';
+    yield 'さしすせそ';
+  }
+  for (let t of myGenerator()){
+    console.log(t);
+  }
+})();
+
+//ジェネレーターの実用例
+(function(){
+  'use strict'
+  function* fibonacci(){
+    var a = 0, b= 1 , temp;
+    while(true){
+      temp = a + b;
+      a = b, b = temp;
+      //何がいいかって、値を配列に格納せずに取り出せること！
+      yield a;
+    }
+  }
+  var g = fibonacci();
+  for(var num of g){
+    //ブレークしないと値が無限にあるので無限ループ
+    if(num > 1000) break;
+    console.log(num);
+  }
+})();

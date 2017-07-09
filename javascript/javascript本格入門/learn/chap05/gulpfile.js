@@ -4,7 +4,9 @@ var gulp       = require('gulp'),
 	source     = require("vinyl-source-stream");
 
   gulp.task('babelify', function () {
-  	browserify('js/chap05-babel.js', { debug: true })
+  	browserify({
+      entries:['js/chap05-babel.js']  
+    }, { debug: true })
     .transform(babelify, {presets: ['es2015']})
 		.bundle()
     .on("error", function (err) {
